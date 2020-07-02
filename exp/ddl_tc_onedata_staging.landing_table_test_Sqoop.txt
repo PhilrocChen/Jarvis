@@ -2,7 +2,7 @@
 /*
   Description: Jarvis auto generation
   Author: Jarvis
-  Last Modified: 2020-07-01 18:07:20
+  Last Modified: 2020-07-02 11:54:08
 */
 
 
@@ -15,6 +15,9 @@ CREATE TABLE IF NOT EXISTS `onedata_staging.landing_table_test_Sqoop`(
 `source_system_code` String COMMENT 'source system code'
 )
 COMMENT 'Test only'
+PARTITIONED BY (
+  `dt` string
+)
 ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe'
 WITH SERDEPROPERTIES
 (

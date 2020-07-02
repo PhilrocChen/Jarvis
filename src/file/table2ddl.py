@@ -190,14 +190,8 @@ class Table2DDL:
         _database_name = _table.database_name()
         _table_name = _table.table_name()
         _table_comment = _table.table_comment()
-        _table_layer = _table.table_layer()
-        _table_type = _table.table_type()
         _row_format_serde = _table.row_format_serde()
-        _data_file_location = _table.data_file_location()
         _partitioned_by = _table.partitioned_by(partition_key_list)
-        _clustered_by = _table.clustered_by()
-        _sorted_by = _table.sorted_by()
-        _buckets_number = _table.buckets_number()
         _store_as = _table.store_as()
         _with_serdeproperties = _table.with_serdeproperties()
         # Header script
@@ -209,6 +203,13 @@ class Table2DDL:
         _script_format = "\nCOMMENT '{}'"
         _tail_script = _script_format.format(_table_comment)
         tail_script = tail_script + _tail_script
+        # Partition
+        if _partitioned_by:
+            _script_format = "\nPARTITIONED BY (\n{}\n)"
+            _tail_script = _script_format.format(_partitioned_by)
+            tail_script = tail_script + _tail_script
+        else:
+            pass
         # Row format serde
         _script_format = "\nROW FORMAT SERDE '{}'"
         _tail_script = _script_format.format(_row_format_serde)
