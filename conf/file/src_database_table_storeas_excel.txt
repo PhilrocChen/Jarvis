@@ -1,0 +1,4 @@
+STORED AS INPUTFORMAT
+  'org.zuinnote.hadoop.office.format.mapred.ExcelFileInputFormat'
+OUTPUTFORMAT
+  'org.zuinnote.hadoop.excel.hive.outputformat.HiveExcelRowFileOutputFormat'

@@ -1,0 +1,6 @@
+WITH SERDEPROPERTIES
+(
+  'field.delim'='\u0001',
+  'line.delim'='\n',
+  'serialization.format'='\u0001'
+)

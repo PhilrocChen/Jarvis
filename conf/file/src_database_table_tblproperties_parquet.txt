@@ -1,0 +1,5 @@
+TBLPROPERTIES
+(
+  'PARQUET.COMPRESS'='SNAPPY',
+  'transactional'='true'
+)

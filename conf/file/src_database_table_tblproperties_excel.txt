@@ -1,0 +1,10 @@
+TBLPROPERTIES
+(
+  'COLUMN_STATS_ACCURATE'='false',
+  'hadoopoffice.read.header.read'='true',
+  'hadoopoffice.read.header.skipheaderinallsheets'='true',
+  'hadoopoffice.read.locale.bcp47'='DE',
+  'hadoopoffice.read.sheets'='Data',
+  'hadoopoffice.read.simple.decimalFormat'='DE',
+  'hadoopoffice.write.locale.bcp47'='DE'
+)

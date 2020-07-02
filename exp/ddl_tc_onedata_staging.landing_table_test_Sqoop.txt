@@ -1,0 +1,29 @@
+
+/*
+  Description: Jarvis auto generation
+  Author: Jarvis
+  Last Modified: 2020-07-01 18:07:20
+*/
+
+
+CREATE TABLE IF NOT EXISTS `onedata_staging.landing_table_test_Sqoop`(
+`user_id` String COMMENT 'user id',
+`user_nm` String COMMENT 'user name',
+`load_job_number` String COMMENT 'system load job number',
+`load_job_name` String COMMENT 'system load job name',
+`insert_timestamp` String COMMENT 'system insert timestamp',
+`source_system_code` String COMMENT 'source system code'
+)
+COMMENT 'Test only'
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe'
+WITH SERDEPROPERTIES
+(
+  'field.delim'='\u0001',
+  'line.delim'='\n',
+  'serialization.format'='\u0001'
+)
+STORED AS INPUTFORMAT
+  'org.apache.hadoop.mapred.TextInputFormat'
+OUTPUTFORMAT
+  'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
+;
