@@ -11,8 +11,8 @@ Purpose:
 import datetime
 import conf.configuration as cf
 import src.error.file as fe
-from src.database.table import Table
-from src.file.save2exp import Save2Exp
+from src.entity.table import Table
+from src.output.save2exp import Save2Exp
 
 
 class Table2DDL:
@@ -26,13 +26,13 @@ class Table2DDL:
     def get_tables(self):
         # try:
         for table in self.table_info:
-            # file header
+            # transform header
             _file_header = "\n--  Description: Jarvis auto generation"
             _file_header = _file_header + "\n--  Author: Jarvis"
             _date_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             _script_format = "\n--  Last Modified: {}"
             _file_header = _file_header + _script_format.format(_date_time)
-            # file body
+            # transform body
             body_script, partition_key_list = self.create_body(table[0], table[1])
             file_name, header_script, tail_script = self.create_header_tail(table[0], partition_key_list)
             _script_format = "{}\n\n\n{}\n{}\n{}"

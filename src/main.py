@@ -9,8 +9,8 @@ Purpose:
     2. Compare with meta data for sync and check. (This is going to be phase 2)
 """
 
-from src.file.excel import Excel
-from src.file.table2ddl import Table2DDL
+from src.entity.excel import Excel
+from src.transform.table2ddl import Table2DDL
 
 
 def main():

@@ -3,9 +3,9 @@
 
 """
 Created by: Philroc Chen
-Created on: 2020-06-10
+Created on: 2020-03-21
 Purpose:
-    Load data from source to land
+    Save transform to exp
 """
 
 import os
@@ -23,6 +23,6 @@ class Save2Exp:
         self.text = text
 
     def file_save(self):
-        file = os.path.join(cf.EXP, '{}.txt'.format(self.name))
+        file = os.path.join(cf.EXP, '{}.hql'.format(self.name))
         with open(file, 'w') as f:
             f.write('\n' + str(self.text))

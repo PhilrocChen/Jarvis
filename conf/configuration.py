@@ -49,7 +49,7 @@ TABLE_HEADER_STRUCTURE = [
     ['Quote Char', [7, 1]],
     ['Separator Char', [8, 1]],
     ['Serialization Encoding', [9, 1]],
-    ['Data file location (External table and file loading)', [10, 1]],
+    ['Data transform location (External table and transform loading)', [10, 1]],
     ['Clustered by (Clustered Only)', [11, 1]],
     ['Sorted by (Clustered Only)', [12, 1]],
     ['Buckets number (Clustered Only)', [13, 1]],
@@ -84,7 +84,7 @@ ROW_FORMAT_SERDE_LIST = [
 """
 Mysql Database
 """
-MYSQL_HOST = 'yimian.mysql.database.chinacloudapi.cn'
+MYSQL_HOST = 'yimian.mysql.entity.chinacloudapi.cn'
 MYSQL_PORT = 3306
 MYSQL_USER = 'lrl_apac@yimian'
 MYSQL_PASSWORD = 'WCQNA5+{c[n1'
@@ -95,7 +95,7 @@ MYSQL_CHARSET = 'utf8mb4'
 SqlServer Database
 One Data Audit
 """
-SQLSERVER_SERVER = 'sgapacsagdbp1a.283e64fb58c7.database.windows.net'
+SQLSERVER_SERVER = 'sgapacsagdbp1a.283e64fb58c7.entity.windows.net'
 SQLSERVER_USER = 'adp_etlaudit'
 SQLSERVER_PASSWORD = 'adp_etlaudit123'
 SQLSERVER_DATABASE = 'ADP_ETL_Audit'
