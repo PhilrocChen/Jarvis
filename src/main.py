@@ -14,7 +14,7 @@ from src.file.table2ddl import Table2DDL
 
 
 def main():
-    data = Excel("OneData_DataModel_Template_20200701.xlsm")
+    data = Excel("OneData_DataModel_KOREA_20201030.xlsm")
     ddl = Table2DDL(data.table_info)
     ddl.get_tables()
 

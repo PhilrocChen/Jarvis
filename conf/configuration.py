@@ -57,15 +57,15 @@ TABLE_HEADER_STRUCTURE = [
 ]
 
 TABLE_BODY_STRUCTURE = [
-    'Column Logic Name',
-    'Column Physical Name',
-    'Column Type',
-    'Primary Key',
-    'Partition Key',
-    'Nullable',
-    'Private Default Value',
-    'Column Comment',
-    'Data Validation',
+    'Column Logic Name',  # Column 0
+    'Column Physical Name',  # Column 1
+    'Column Type',  # Column 2
+    'Primary Key',  # Column 3
+    'Partition Key',  # Column 4
+    'Nullable',  # Column 5
+    'Private Default Value',  # Column 6
+    'Column Comment',  # Column 7
+    'Data Validation',  # Column 8
 ]
 TABLE_BODY_PARTITION_KEY_LIST = ['Y']
 

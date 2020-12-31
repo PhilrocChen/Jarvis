@@ -23,7 +23,7 @@ class Table:
 
         :param self:
         """
-        database_name = self.info[cf.TABLE_HEADER_STRUCTURE[0][1][0]].strip()
+        database_name = str(self.info[cf.TABLE_HEADER_STRUCTURE[0][1][0]]).strip()
         check_zip = zip(cf.TABLE_HEADER_STRUCTURE[0][0], database_name)
         fe.table_info_miss(check_zip)
         return database_name
@@ -33,7 +33,7 @@ class Table:
 
         :param self:
         """
-        table_name = self.info[cf.TABLE_HEADER_STRUCTURE[1][1][0]].strip()
+        table_name = str(self.info[cf.TABLE_HEADER_STRUCTURE[1][1][0]]).strip()
         check_zip = zip(cf.TABLE_HEADER_STRUCTURE[1][0], table_name)
         fe.table_info_miss(check_zip)
         return table_name
@@ -43,7 +43,7 @@ class Table:
 
         :param self:
         """
-        table_comment = self.info[cf.TABLE_HEADER_STRUCTURE[2][1][0]].strip()
+        table_comment = str(self.info[cf.TABLE_HEADER_STRUCTURE[2][1][0]]).strip()
         check_zip = zip(cf.TABLE_HEADER_STRUCTURE[2][0], table_comment)
         fe.table_info_miss(check_zip)
         return table_comment
@@ -53,7 +53,7 @@ class Table:
 
         :param self:
         """
-        table_layer = self.info[cf.TABLE_HEADER_STRUCTURE[3][1][0]].strip()
+        table_layer = str(self.info[cf.TABLE_HEADER_STRUCTURE[3][1][0]]).strip()
         check_zip = zip(cf.TABLE_HEADER_STRUCTURE[3][0], table_layer)
         fe.table_info_miss(check_zip)
         return table_layer
@@ -63,7 +63,7 @@ class Table:
 
         :param self:
         """
-        table_type = self.info[cf.TABLE_HEADER_STRUCTURE[4][1][0]].strip()
+        table_type = str(self.info[cf.TABLE_HEADER_STRUCTURE[4][1][0]]).strip()
         check_zip = zip(cf.TABLE_HEADER_STRUCTURE[4][0], table_type)
         fe.table_info_miss(check_zip)
         return table_type
@@ -73,7 +73,7 @@ class Table:
 
         :param self:
         """
-        row_format_delimiter = self.info[cf.TABLE_HEADER_STRUCTURE[5][1][0]].strip()
+        row_format_delimiter = str(self.info[cf.TABLE_HEADER_STRUCTURE[5][1][0]]).strip()
         check_zip = zip(cf.TABLE_HEADER_STRUCTURE[5][0], row_format_delimiter)
         fe.table_info_miss(check_zip)
         for i in range(len(cf.ROW_FORMAT_SERDE_LIST)):
@@ -89,7 +89,7 @@ class Table:
 
         :param self:
         """
-        field_delim = self.info[cf.TABLE_HEADER_STRUCTURE[6][1][0]].strip()
+        field_delim = str(self.info[cf.TABLE_HEADER_STRUCTURE[6][1][0]]).strip()
         check_zip = zip(cf.TABLE_HEADER_STRUCTURE[6][0], field_delim)
         fe.table_info_miss(check_zip)
         return field_delim
@@ -99,7 +99,7 @@ class Table:
 
         :param self:
         """
-        quote_char = self.info[cf.TABLE_HEADER_STRUCTURE[7][1][0]].strip()
+        quote_char = str(self.info[cf.TABLE_HEADER_STRUCTURE[7][1][0]]).strip()
         check_zip = zip(cf.TABLE_HEADER_STRUCTURE[7][0], quote_char)
         fe.table_info_miss(check_zip)
         return quote_char
@@ -109,7 +109,7 @@ class Table:
 
         :param self:
         """
-        separator_char = self.info[cf.TABLE_HEADER_STRUCTURE[8][1][0]].strip()
+        separator_char = str(self.info[cf.TABLE_HEADER_STRUCTURE[8][1][0]]).strip()
         check_zip = zip(cf.TABLE_HEADER_STRUCTURE[8][0], separator_char)
         fe.table_info_miss(check_zip)
         return separator_char
@@ -119,7 +119,7 @@ class Table:
 
         :param self:
         """
-        serialization_encoding = self.info[cf.TABLE_HEADER_STRUCTURE[9][1][0]].strip()
+        serialization_encoding = str(self.info[cf.TABLE_HEADER_STRUCTURE[9][1][0]]).strip()
         check_zip = zip(cf.TABLE_HEADER_STRUCTURE[9][0], serialization_encoding)
         fe.table_info_miss(check_zip)
         return serialization_encoding
@@ -130,9 +130,16 @@ class Table:
         :param self:
         """
         if not pd.isnull(self.info[cf.TABLE_HEADER_STRUCTURE[10][1][0]]):
-            data_file_location = self.info[cf.TABLE_HEADER_STRUCTURE[10][1][0]].strip()
+            data_file_location = str(self.info[cf.TABLE_HEADER_STRUCTURE[10][1][0]]).strip()
         else:
             data_file_location = ""
+        if (
+                self.table_type() == cf.TABLE_TYPE_LIST[0]
+        ):
+            _script_format = "/user/hive/warehouse/{}.db/{}"
+            data_file_location = _script_format.format(self.database_name(), self.table_name())
+        else:
+            pass
         return data_file_location
 
     def partitioned_by(self, partition_key_list):
@@ -159,7 +166,7 @@ class Table:
         :param self:
         """
         if not pd.isnull(self.info[cf.TABLE_HEADER_STRUCTURE[11][1][0]]):
-            clustered_by = self.info[cf.TABLE_HEADER_STRUCTURE[11][1][0]].strip()
+            clustered_by = str(self.info[cf.TABLE_HEADER_STRUCTURE[11][1][0]]).strip()
         else:
             clustered_by = ""
         return clustered_by
@@ -170,7 +177,7 @@ class Table:
         :param self:
         """
         if not pd.isnull(self.info[cf.TABLE_HEADER_STRUCTURE[12][1][0]]):
-            sorted_by = self.info[cf.TABLE_HEADER_STRUCTURE[12][1][0]].strip()
+            sorted_by = str(self.info[cf.TABLE_HEADER_STRUCTURE[12][1][0]]).strip()
         else:
             sorted_by = ""
         return sorted_by

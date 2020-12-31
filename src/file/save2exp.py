@@ -23,6 +23,6 @@ class Save2Exp:
         self.text = text
 
     def file_save(self):
-        file = os.path.join(cf.EXP, '{}.txt'.format(self.name))
+        file = os.path.join(cf.EXP, '{}.hql'.format(self.name))
         with open(file, 'w') as f:
             f.write('\n' + str(self.text))

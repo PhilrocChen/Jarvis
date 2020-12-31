@@ -24,27 +24,25 @@ class Table2DDL:
         self.table_info = table_info
 
     def get_tables(self):
-        try:
-            for table in self.table_info:
-                # file header
-                _file_header = "/*"
-                _file_header = _file_header + "\n  Description: Jarvis auto generation"
-                _file_header = _file_header + "\n  Author: Jarvis"
-                _date_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                _script_format = "\n  Last Modified: {}"
-                _file_header = _file_header + _script_format.format(_date_time)
-                _file_header = _file_header + "\n*/"
-                # file body
-                body_script, partition_key_list = self.create_body(table[0], table[1])
-                file_name, header_script, tail_script = self.create_header_tail(table[0], partition_key_list)
-                _script_format = "{}\n\n\n{}\n{}\n{}"
-                script = _script_format.format(_file_header, header_script, body_script, tail_script)
-                _script_format = "{}: Script generated successfully: {}"
-                file_save = Save2Exp(file_name, script)
-                file_save.file_save()
-                print(_script_format.format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), file_name))
-        except Exception as e:
-            print(e)
+        # try:
+        for table in self.table_info:
+            # file header
+            _file_header = "\n--  Description: Jarvis auto generation"
+            _file_header = _file_header + "\n--  Author: Jarvis"
+            _date_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            _script_format = "\n--  Last Modified: {}"
+            _file_header = _file_header + _script_format.format(_date_time)
+            # file body
+            body_script, partition_key_list = self.create_body(table[0], table[1])
+            file_name, header_script, tail_script = self.create_header_tail(table[0], partition_key_list)
+            _script_format = "{}\n\n\n{}\n{}\n{}"
+            script = _script_format.format(_file_header, header_script, body_script, tail_script)
+            _script_format = "{}: Script generated successfully: {}"
+            file_save = Save2Exp(file_name, script)
+            file_save.file_save()
+            print(_script_format.format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), file_name))
+        # except Exception as e:
+        #     print(e)
 
     def create_header_tail(self, table, partition_key_list):
         _table = Table(table)
@@ -77,17 +75,17 @@ class Table2DDL:
         _table = Table(table_header)
         _table_layer = _table.table_layer()
         for index, row in table_body.iterrows():
-            _column_partition_key = row[cf.TABLE_BODY_STRUCTURE[4]].strip()
+            _column_partition_key = str(row[cf.TABLE_BODY_STRUCTURE[4]]).strip()
             if _column_partition_key == cf.TABLE_BODY_PARTITION_KEY_LIST[0]:
-                partition_key_list.append(row[cf.TABLE_BODY_STRUCTURE[1]].strip())
+                partition_key_list.append(str(row[cf.TABLE_BODY_STRUCTURE[1]]).strip())
             else:
                 _script_format = "`{}`"
-                _column_physical_name = _script_format.format(row[cf.TABLE_BODY_STRUCTURE[1]].strip())
+                _column_physical_name = _script_format.format(str(row[cf.TABLE_BODY_STRUCTURE[1]]).strip())
                 if _table_layer == cf.TABLE_LAYER_LIST[0]:
                     _column_type = "String"
                 else:
-                    _column_type = row[cf.TABLE_BODY_STRUCTURE[2]].strip()
-                _column_comment = row[cf.TABLE_BODY_STRUCTURE[7]].strip()
+                    _column_type = str(row[cf.TABLE_BODY_STRUCTURE[2]]).strip()
+                _column_comment = str(row[cf.TABLE_BODY_STRUCTURE[7]]).strip()
                 # Mandatory check
                 _check_key_list = [
                     cf.TABLE_BODY_STRUCTURE[1],
@@ -127,7 +125,7 @@ class Table2DDL:
         _store_as = _table.store_as()
         _table_properties = _table.table_properties()
         _with_serdeproperties = _table.with_serdeproperties()
-        # Check External table required information
+        # Check table required information
         _check_key_list = [
             cf.TABLE_HEADER_STRUCTURE[10][0]
         ]
@@ -180,6 +178,8 @@ class Table2DDL:
             tail_script = tail_script + _tail_script
         else:
             pass
+        # Table Properties
+        tail_script = tail_script + "\nTBLPROPERTIES ( 'skip.header.line.count'='1')"
         tail_script = tail_script + "\n;"
         return header_script, tail_script
 
@@ -191,11 +191,14 @@ class Table2DDL:
         _table_name = _table.table_name()
         _table_comment = _table.table_comment()
         _row_format_serde = _table.row_format_serde()
+        _data_file_location = _table.data_file_location()
         _partitioned_by = _table.partitioned_by(partition_key_list)
         _store_as = _table.store_as()
         _with_serdeproperties = _table.with_serdeproperties()
         # Header script
-        _script_format = "CREATE TABLE IF NOT EXISTS `{}.{}`("
+        _script_format = "DROP TABLE IF EXISTS `{}.{}`;"
+        header_script = _script_format.format(_database_name, _table_name)
+        _script_format = header_script + "\nCREATE TABLE IF NOT EXISTS `{}.{}`("
         header_script = _script_format.format(_database_name, _table_name)
         # Tail script
         tail_script = tail_script + ")"
@@ -243,7 +246,9 @@ class Table2DDL:
         _store_as = _table.store_as()
         _table_properties = _table.table_properties()
         # Header script
-        _script_format = "CREATE TABLE IF NOT EXISTS `{}.{}`("
+        _script_format = "DROP TABLE IF EXISTS `{}.{}`;"
+        header_script = _script_format.format(_database_name, _table_name)
+        _script_format = header_script + "\nCREATE TABLE IF NOT EXISTS `{}.{}`("
         header_script = _script_format.format(_database_name, _table_name)
         # Tail script
         tail_script = tail_script + ")"
