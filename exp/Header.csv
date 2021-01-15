@@ -1,0 +1,5 @@
+Database name,Table name,Table comment,Table layer,Table type,Row Format Serde,Field Delim,Quote Char,Separator Char,Serialization Encoding,Data transform location (External table and transform loading),Clustered by (Clustered Only),Sorted by (Clustered Only),Buckets number (Clustered Only),"Refresh frequency,"
+korea,itg_dim_calendar,Calendar with Korea holiday,Integration,Internal,PARQUET,",","\""",",",UTF-8,,,,,Daily
+korea,itg_dim_mall,Dimension Mall with channel and signature information,Integration,Internal,PARQUET,",","\""",",",UTF-8,,,,,Daily
+korea,itg_fact_sales_order,Sales Order Line Item level with Header information by join from MARS,Integration,Internal,PARQUET,",","\""",",",UTF-8,,,,,Daily
+korea,itg_fact_sales_order_2,Sales Order Line Item level with Header information by join from MARS,Integration,Internal,PARQUET,",","\""",",",UTF-8,,,,,Daily

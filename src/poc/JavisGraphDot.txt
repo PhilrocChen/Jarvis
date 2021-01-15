@@ -1,0 +1,434 @@
+
+//  Description: Jarvis auto generation
+//  Author: Jarvis
+//  Last Modified: 2021-01-07 14:58:30
+
+digraph models_diagram{
+    graph[rankdir=LR, overlap=false, splines=true];
+    node [shape=record, fontsize=11, fontname=Verdana];
+    edge [style=dashed];
+
+  table0 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">korea.stg_manual_actual_sellout_monthly</td></tr>
+        <tr><td port="0" align="left">channel_name: string</td></tr>
+        <tr><td port="1" align="left">mall_name: string</td></tr>
+        <tr><td port="2" align="left">sap_signature_short_name: string</td></tr>
+        <tr><td port="3" align="left">year_name: string</td></tr>
+        <tr><td port="4" align="left">month_short_desc: string</td></tr>
+        <tr><td port="5" align="left">actual_sellout_amount: decimal(22,7)</td></tr>
+        <tr><td port="6" align="left">insert_timestamp: timestamp</td></tr>
+        <tr><td port="7" align="left">source_system_code: string</td></tr>
+        <tr><td port="8" align="left">batch_date: string</td></tr>
+    </table>>];
+  table1 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">korea.ldg_sales_order_header_adjustment</td></tr>
+        <tr><td port="0" align="left">adjustment_code: string</td></tr>
+        <tr><td port="1" align="left">adjustment_date: date</td></tr>
+        <tr><td port="2" align="left">adjustment_owner_name: string</td></tr>
+        <tr><td port="3" align="left">order_num: string</td></tr>
+        <tr><td port="4" align="left">order_type_code: string</td></tr>
+        <tr><td port="5" align="left">order_date: timestamp</td></tr>
+        <tr><td port="6" align="left">doc_date: timestamp</td></tr>
+        <tr><td port="7" align="left">market_id: string</td></tr>
+        <tr><td port="8" align="left">sap_signature_code: string</td></tr>
+        <tr><td port="9" align="left">ident_source_code: string</td></tr>
+        <tr><td port="10" align="left">counter_id: string</td></tr>
+        <tr><td port="11" align="left">ba_id: string</td></tr>
+        <tr><td port="12" align="left">person_id: string</td></tr>
+    </table>>];
+  table2 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">korea.stg_sales_order_header_adjustment</td></tr>
+        <tr><td port="0" align="left">adjustment_code: string</td></tr>
+        <tr><td port="1" align="left">adjustment_date: date</td></tr>
+        <tr><td port="2" align="left">adjustment_owner_name: string</td></tr>
+        <tr><td port="3" align="left">order_num: string</td></tr>
+        <tr><td port="4" align="left">order_type_code: string</td></tr>
+        <tr><td port="5" align="left">order_date: timestamp</td></tr>
+        <tr><td port="6" align="left">doc_date: timestamp</td></tr>
+        <tr><td port="7" align="left">market_id: string</td></tr>
+        <tr><td port="8" align="left">sap_signature_code: string</td></tr>
+        <tr><td port="9" align="left">ident_source_code: string</td></tr>
+        <tr><td port="10" align="left">counter_id: string</td></tr>
+        <tr><td port="11" align="left">ba_id: string</td></tr>
+        <tr><td port="12" align="left">person_id: string</td></tr>
+        <tr><td port="13" align="left">insert_timestamp: timestamp</td></tr>
+        <tr><td port="14" align="left">source_system_code: string</td></tr>
+        <tr><td port="15" align="left">batch_date: string</td></tr>
+    </table>>];
+  table3 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">korea.ldg_sales_order_line</td></tr>
+        <tr><td port="0" align="left">country: string</td></tr>
+        <tr><td port="1" align="left">organization: string</td></tr>
+        <tr><td port="2" align="left">ident_source: string</td></tr>
+        <tr><td port="3" align="left">person_id: string</td></tr>
+        <tr><td port="4" align="left">order_num: string</td></tr>
+        <tr><td port="5" align="left">bar_code: string</td></tr>
+        <tr><td port="6" align="left">product: string</td></tr>
+        <tr><td port="7" align="left">type: string</td></tr>
+        <tr><td port="8" align="left">quantity: int</td></tr>
+        <tr><td port="9" align="left">return_reason_cd: string</td></tr>
+        <tr><td port="10" align="left">price: decimal(22,7)</td></tr>
+        <tr><td port="11" align="left">product_origin: string</td></tr>
+        <tr><td port="12" align="left">product_type: string</td></tr>
+        <tr><td port="13" align="left">coupon_code: string</td></tr>
+        <tr><td port="14" align="left">line_num: string</td></tr>
+        <tr><td port="15" align="left">markdown_reason1: string</td></tr>
+        <tr><td port="16" align="left">markdown_reason2: string</td></tr>
+        <tr><td port="17" align="left">incl_amt_bf_disc: decimal(22,7)</td></tr>
+        <tr><td port="18" align="left">excl_amt_af_disc: decimal(22,7)</td></tr>
+        <tr><td port="19" align="left">excl_amt_bf_disc: decimal(22,7)</td></tr>
+        <tr><td port="20" align="left">sap_item_code: string</td></tr>
+    </table>>];
+  table4 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">korea.ldg_sales_order_header</td></tr>
+        <tr><td port="0" align="left">country: string</td></tr>
+        <tr><td port="1" align="left">organization: string</td></tr>
+        <tr><td port="2" align="left">ident_source: string</td></tr>
+        <tr><td port="3" align="left">person_id: string</td></tr>
+        <tr><td port="4" align="left">order_num: string</td></tr>
+        <tr><td port="5" align="left">order_dt: timestamp</td></tr>
+        <tr><td port="6" align="left">counter_id: string</td></tr>
+        <tr><td port="7" align="left">ba_id: string</td></tr>
+        <tr><td port="8" align="left">type: string</td></tr>
+        <tr><td port="9" align="left">amount: decimal(22,7)</td></tr>
+        <tr><td port="10" align="left">remark: string</td></tr>
+        <tr><td port="11" align="left">status: string</td></tr>
+        <tr><td port="12" align="left">quantity: int</td></tr>
+        <tr><td port="13" align="left">gpbuy_flg: string</td></tr>
+        <tr><td port="14" align="left">points: string</td></tr>
+        <tr><td port="15" align="left">source: string</td></tr>
+        <tr><td port="16" align="left">doc_dt: timestamp</td></tr>
+        <tr><td port="17" align="left">markdown_reason: string</td></tr>
+        <tr><td port="18" align="left">incl_amt_bf_disc: decimal(22,7)</td></tr>
+        <tr><td port="19" align="left">excl_amt_af_disc: decimal(22,7)</td></tr>
+        <tr><td port="20" align="left">excl_amt_bf_disc: decimal(22,7)</td></tr>
+    </table>>];
+  table5 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">korea.rpt_kpi_sellout_performance_l1</td></tr>
+        <tr><td port="0" align="left">doc_date: timestamp</td></tr>
+        <tr><td port="1" align="left">doc_month_code: string</td></tr>
+        <tr><td port="2" align="left">channel_mode_code: string</td></tr>
+        <tr><td port="3" align="left">channel_name: string</td></tr>
+        <tr><td port="4" align="left">mall_name: string</td></tr>
+        <tr><td port="5" align="left">sap_signature_short_name: string</td></tr>
+        <tr><td port="6" align="left">month_short_desc: string</td></tr>
+        <tr><td port="7" align="left">prev_year_sellout_amount: decimal(22,7)</td></tr>
+        <tr><td port="8" align="left">actual_sellout_amount: decimal(22,7)</td></tr>
+        <tr><td port="9" align="left">budget_amount: decimal(22,7)</td></tr>
+        <tr><td port="10" align="left">trend_target_amount: decimal(22,7)</td></tr>
+        <tr><td port="11" align="left">commercial_target_amount: decimal(22,7)</td></tr>
+        <tr><td port="12" align="left">achieve_budget_pct: decimal(22,7)</td></tr>
+        <tr><td port="13" align="left">achieve_trend_pct: decimal(22,7)</td></tr>
+        <tr><td port="14" align="left">achieve_target_pct: decimal(22,7)</td></tr>
+        <tr><td port="15" align="left">evol_pct: decimal(22,7)</td></tr>
+        <tr><td port="16" align="left">insert_timestamp: timestamp</td></tr>
+        <tr><td port="17" align="left">source_system_code: string</td></tr>
+        <tr><td port="18" align="left">batch_date: string</td></tr>
+    </table>>];
+  table6 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">korea.itg_dim_calendar</td></tr>
+        <tr><td port="0" align="left">date_id: int</td></tr>
+        <tr><td port="1" align="left">date: timestamp</td></tr>
+        <tr><td port="2" align="left">day: int</td></tr>
+        <tr><td port="3" align="left">day_desc: string</td></tr>
+        <tr><td port="4" align="left">week_num: int</td></tr>
+        <tr><td port="5" align="left">day_of_week: int</td></tr>
+        <tr><td port="6" align="left">day_of_week_desc: string</td></tr>
+        <tr><td port="7" align="left">week_start_date: timestamp</td></tr>
+        <tr><td port="8" align="left">week_end_date: timestamp</td></tr>
+        <tr><td port="9" align="left">month: int</td></tr>
+        <tr><td port="10" align="left">month_short_desc: string</td></tr>
+        <tr><td port="11" align="left">r3m_start_month: string</td></tr>
+        <tr><td port="12" align="left">last_month: string</td></tr>
+        <tr><td port="13" align="left">month_year: string</td></tr>
+        <tr><td port="14" align="left">quarter: string</td></tr>
+        <tr><td port="15" align="left">quarter_year: string</td></tr>
+        <tr><td port="16" align="left">semester: string</td></tr>
+        <tr><td port="17" align="left">semester_year: string</td></tr>
+        <tr><td port="18" align="left">year: int</td></tr>
+        <tr><td port="19" align="left">last_year_today: timestamp</td></tr>
+        <tr><td port="20" align="left">load_ts: timestamp</td></tr>
+        <tr><td port="21" align="left">workday_flag: string</td></tr>
+        <tr><td port="22" align="left">date_desc: string</td></tr>
+        <tr><td port="23" align="left">insert_timestamp: timestamp</td></tr>
+        <tr><td port="24" align="left">source_system_code: string</td></tr>
+        <tr><td port="25" align="left">batch_date: string</td></tr>
+    </table>>];
+  table7 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">korea.rpt_sellout_daily_agg_l1</td></tr>
+        <tr><td port="0" align="left">doc_date: timestamp</td></tr>
+        <tr><td port="1" align="left">channel_mode_code: string</td></tr>
+        <tr><td port="2" align="left">channel_name: string</td></tr>
+        <tr><td port="3" align="left">mall_name: string</td></tr>
+        <tr><td port="4" align="left">sap_signature_short_name: string</td></tr>
+        <tr><td port="5" align="left">month_short_desc: string</td></tr>
+        <tr><td port="6" align="left">prev_year_sellout_amount: decimal(22,7)</td></tr>
+        <tr><td port="7" align="left">actual_sellout_amount: decimal(22,7)</td></tr>
+        <tr><td port="8" align="left">insert_timestamp: timestamp</td></tr>
+        <tr><td port="9" align="left">source_system_code: string</td></tr>
+        <tr><td port="10" align="left">batch_date: string</td></tr>
+        <tr><td port="11" align="left">doc_month_code: string</td></tr>
+    </table>>];
+  table8 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">korea.stg_workday_calendar</td></tr>
+        <tr><td port="0" align="left">date_id: string</td></tr>
+        <tr><td port="1" align="left">date_desc: string</td></tr>
+        <tr><td port="2" align="left">workday_flag: string</td></tr>
+        <tr><td port="3" align="left">insert_timestamp: timestamp</td></tr>
+        <tr><td port="4" align="left">source_system_code: string</td></tr>
+        <tr><td port="5" align="left">batch_date: string</td></tr>
+    </table>>];
+  table9 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">korea.stg_sales_order_item_adjustment</td></tr>
+        <tr><td port="0" align="left">adjustment_code: string</td></tr>
+        <tr><td port="1" align="left">adjustment_date: date</td></tr>
+        <tr><td port="2" align="left">adjustment_owner_name: string</td></tr>
+        <tr><td port="3" align="left">order_number: string</td></tr>
+        <tr><td port="4" align="left">order_line_number: string</td></tr>
+        <tr><td port="5" align="left">order_type_code: string</td></tr>
+        <tr><td port="6" align="left">sap_product_code: string</td></tr>
+        <tr><td port="7" align="left">sap_item_code: string</td></tr>
+        <tr><td port="8" align="left">product_origin_code: string</td></tr>
+        <tr><td port="9" align="left">bar_code: string</td></tr>
+        <tr><td port="10" align="left">order_quantity: int</td></tr>
+        <tr><td port="11" align="left">order_price_amount: decimal(22,7)</td></tr>
+        <tr><td port="12" align="left">incl_amt_bf_disc_amount: decimal(22,7)</td></tr>
+        <tr><td port="13" align="left">excl_amt_af_disc_amount: decimal(22,7)</td></tr>
+        <tr><td port="14" align="left">excl_amt_bf_disc_amount: decimal(22,7)</td></tr>
+        <tr><td port="15" align="left">insert_timestamp: timestamp</td></tr>
+        <tr><td port="16" align="left">source_system_code: string</td></tr>
+        <tr><td port="17" align="left">batch_date: string</td></tr>
+    </table>>];
+  table10 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">korea.ldg_manual_sellout_daily</td></tr>
+        <tr><td port="0" align="left">channel_name: string</td></tr>
+        <tr><td port="1" align="left">mall_name: string</td></tr>
+        <tr><td port="2" align="left">sap_signature_short_name: string</td></tr>
+        <tr><td port="3" align="left">year_name: string</td></tr>
+        <tr><td port="4" align="left">month_name: string</td></tr>
+        <tr><td port="5" align="left">day_name: string</td></tr>
+        <tr><td port="6" align="left">actual_sellout_amount: decimal(22,7)</td></tr>
+    </table>>];
+  table11 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">korea.ldg_counter_channel_mapping</td></tr>
+        <tr><td port="0" align="left">channel_mode_code: string</td></tr>
+        <tr><td port="1" align="left">channel_name: string</td></tr>
+        <tr><td port="2" align="left">mall_name: string</td></tr>
+        <tr><td port="3" align="left">sap_signature_short_name: string</td></tr>
+        <tr><td port="4" align="left">counter_id: string</td></tr>
+        <tr><td port="5" align="left">ba_id: string</td></tr>
+    </table>>];
+  table12 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">korea.ldg_gmv_sap_product</td></tr>
+        <tr><td port="0" align="left">sap_product_code: string</td></tr>
+        <tr><td port="1" align="left">sap_product_name: string</td></tr>
+        <tr><td port="2" align="left">sap_product_desc: string</td></tr>
+        <tr><td port="3" align="left">sap_signature_short_name: string</td></tr>
+        <tr><td port="4" align="left">hero_number: string</td></tr>
+        <tr><td port="5" align="left">hero_name: string</td></tr>
+    </table>>];
+  table13 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">korea.stg_budget_target_monthly</td></tr>
+        <tr><td port="0" align="left">channel_name: string</td></tr>
+        <tr><td port="1" align="left">mall_name: string</td></tr>
+        <tr><td port="2" align="left">sap_signature_short_name: string</td></tr>
+        <tr><td port="3" align="left">year_name: string</td></tr>
+        <tr><td port="4" align="left">month_name: string</td></tr>
+        <tr><td port="5" align="left">pre_budget_amount: decimal(22,7)</td></tr>
+        <tr><td port="6" align="left">budget_amount: decimal(22,7)</td></tr>
+        <tr><td port="7" align="left">trend_target_amount: decimal(22,7)</td></tr>
+        <tr><td port="8" align="left">commercial_target_amount: decimal(22,7)</td></tr>
+        <tr><td port="9" align="left">insert_timestamp: timestamp</td></tr>
+        <tr><td port="10" align="left">source_system_code: string</td></tr>
+        <tr><td port="11" align="left">batch_date: string</td></tr>
+    </table>>];
+  table14 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">korea.stg_sales_order_line</td></tr>
+        <tr><td port="0" align="left">header_country: string</td></tr>
+        <tr><td port="1" align="left">header_organization: string</td></tr>
+        <tr><td port="2" align="left">header_ident_source: string</td></tr>
+        <tr><td port="3" align="left">header_person_id: string</td></tr>
+        <tr><td port="4" align="left">header_order_num: string</td></tr>
+        <tr><td port="5" align="left">header_order_dt: timestamp</td></tr>
+        <tr><td port="6" align="left">header_counter_id: string</td></tr>
+        <tr><td port="7" align="left">header_ba_id: string</td></tr>
+        <tr><td port="8" align="left">header_type: string</td></tr>
+        <tr><td port="9" align="left">header_amount: decimal(22,7)</td></tr>
+        <tr><td port="10" align="left">header_remark: string</td></tr>
+        <tr><td port="11" align="left">header_status: string</td></tr>
+        <tr><td port="12" align="left">header_quantity: int</td></tr>
+        <tr><td port="13" align="left">header_gpbuy_flg: string</td></tr>
+        <tr><td port="14" align="left">header_points: string</td></tr>
+        <tr><td port="15" align="left">header_source: string</td></tr>
+        <tr><td port="16" align="left">header_doc_dt: timestamp</td></tr>
+        <tr><td port="17" align="left">header_markdown_reason: string</td></tr>
+        <tr><td port="18" align="left">header_incl_amt_bf_disc: decimal(22,7)</td></tr>
+        <tr><td port="19" align="left">header_excl_amt_af_disc: decimal(22,7)</td></tr>
+        <tr><td port="20" align="left">header_excl_amt_bf_disc: decimal(22,7)</td></tr>
+        <tr><td port="21" align="left">line_bar_code: string</td></tr>
+        <tr><td port="22" align="left">line_product: string</td></tr>
+        <tr><td port="23" align="left">line_type: string</td></tr>
+        <tr><td port="24" align="left">line_quantity: int</td></tr>
+        <tr><td port="25" align="left">line_return_reason_cd: string</td></tr>
+        <tr><td port="26" align="left">line_price: decimal(22,7)</td></tr>
+        <tr><td port="27" align="left">line_product_origin: string</td></tr>
+        <tr><td port="28" align="left">line_product_type: string</td></tr>
+        <tr><td port="29" align="left">line_coupon_code: string</td></tr>
+        <tr><td port="30" align="left">line_line_num: string</td></tr>
+        <tr><td port="31" align="left">line_markdown_reason1: string</td></tr>
+        <tr><td port="32" align="left">line_markdown_reason2: string</td></tr>
+        <tr><td port="33" align="left">line_incl_amt_bf_disc: decimal(22,7)</td></tr>
+        <tr><td port="34" align="left">line_excl_amt_af_disc: decimal(22,7)</td></tr>
+        <tr><td port="35" align="left">line_excl_amt_bf_disc: decimal(22,7)</td></tr>
+        <tr><td port="36" align="left">line_sap_item_code: string</td></tr>
+        <tr><td port="37" align="left">insert_timestamp: timestamp</td></tr>
+        <tr><td port="38" align="left">source_system_code: string</td></tr>
+        <tr><td port="39" align="left">batch_date: string</td></tr>
+        <tr><td port="40" align="left">header_doc_month_code: string</td></tr>
+    </table>>];
+  table15 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">korea.itg_dim_mall</td></tr>
+        <tr><td port="0" align="left">channel_name: string</td></tr>
+        <tr><td port="1" align="left">mall_name: string</td></tr>
+        <tr><td port="2" align="left">sap_signature_short_name: string</td></tr>
+        <tr><td port="3" align="left">insert_timestamp: timestamp</td></tr>
+        <tr><td port="4" align="left">source_system_code: string</td></tr>
+        <tr><td port="5" align="left">batch_date: string</td></tr>
+    </table>>];
+  table16 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">korea.ldg_workday_calendar</td></tr>
+        <tr><td port="0" align="left">date_id: string</td></tr>
+        <tr><td port="1" align="left">date_desc: string</td></tr>
+        <tr><td port="2" align="left">workday_flag: string</td></tr>
+    </table>>];
+  table17 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">korea.ldg_manual_sellout_monthly</td></tr>
+        <tr><td port="0" align="left">channel_name: string</td></tr>
+        <tr><td port="1" align="left">mall_name: string</td></tr>
+        <tr><td port="2" align="left">sap_signature_short_name: string</td></tr>
+        <tr><td port="3" align="left">year_name: string</td></tr>
+        <tr><td port="4" align="left">month_name: string</td></tr>
+        <tr><td port="5" align="left">actual_sellout_amount: decimal(22,7)</td></tr>
+    </table>>];
+  table18 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">korea.ldg_budget_target_monthly</td></tr>
+        <tr><td port="0" align="left">channel_name: string</td></tr>
+        <tr><td port="1" align="left">mall_name: string</td></tr>
+        <tr><td port="2" align="left">sap_signature_short_name: string</td></tr>
+        <tr><td port="3" align="left">year_name: string</td></tr>
+        <tr><td port="4" align="left">month_name: string</td></tr>
+        <tr><td port="5" align="left">pre_budget_amount: decimal(22,7)</td></tr>
+        <tr><td port="6" align="left">budget_amount: decimal(22,7)</td></tr>
+        <tr><td port="7" align="left">trend_target_amount: decimal(22,7)</td></tr>
+        <tr><td port="8" align="left">commercial_target_amount: decimal(22,7)</td></tr>
+    </table>>];
+  table19 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">korea.ldg_sales_order_line_adjustment</td></tr>
+        <tr><td port="0" align="left">adjustment_code: string</td></tr>
+        <tr><td port="1" align="left">adjustment_date: date</td></tr>
+        <tr><td port="2" align="left">adjustment_owner_name: string</td></tr>
+        <tr><td port="3" align="left">order_number: string</td></tr>
+        <tr><td port="4" align="left">order_line_number: string</td></tr>
+        <tr><td port="5" align="left">order_type_code: string</td></tr>
+        <tr><td port="6" align="left">sap_product_code: string</td></tr>
+        <tr><td port="7" align="left">sap_item_code: string</td></tr>
+        <tr><td port="8" align="left">product_origin_code: string</td></tr>
+        <tr><td port="9" align="left">bar_code: string</td></tr>
+        <tr><td port="10" align="left">order_quantity: int</td></tr>
+        <tr><td port="11" align="left">order_price_amount: decimal(22,7)</td></tr>
+        <tr><td port="12" align="left">incl_amt_bf_disc_amount: decimal(22,7)</td></tr>
+        <tr><td port="13" align="left">excl_amt_af_disc_amount: decimal(22,7)</td></tr>
+        <tr><td port="14" align="left">excl_amt_bf_disc_amount: decimal(22,7)</td></tr>
+    </table>>];
+  table20 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">korea.stg_counter_channel_mapping</td></tr>
+        <tr><td port="0" align="left">channel_mode_code: string</td></tr>
+        <tr><td port="1" align="left">channel_name: string</td></tr>
+        <tr><td port="2" align="left">mall_name: string</td></tr>
+        <tr><td port="3" align="left">sap_signature_short_name: string</td></tr>
+        <tr><td port="4" align="left">counter_id: string</td></tr>
+        <tr><td port="5" align="left">ba_id: string</td></tr>
+        <tr><td port="6" align="left">insert_timestamp: timestamp</td></tr>
+        <tr><td port="7" align="left">source_system_code: string</td></tr>
+        <tr><td port="8" align="left">batch_date: string</td></tr>
+    </table>>];
+  table21 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">korea.stg_manual_open_sales_daily</td></tr>
+        <tr><td port="0" align="left">channel_name: string</td></tr>
+        <tr><td port="1" align="left">mall_name: string</td></tr>
+        <tr><td port="2" align="left">sap_signature_short_name: string</td></tr>
+        <tr><td port="3" align="left">year_name: string</td></tr>
+        <tr><td port="4" align="left">month_name: string</td></tr>
+        <tr><td port="5" align="left">day_name: string</td></tr>
+        <tr><td port="6" align="left">actual_sellout_amount: decimal(22,7)</td></tr>
+        <tr><td port="7" align="left">insert_timestamp: timestamp</td></tr>
+        <tr><td port="8" align="left">source_system_code: string</td></tr>
+        <tr><td port="9" align="left">batch_date: string</td></tr>
+    </table>>];
+  table22 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">korea.itg_fact_sales_order</td></tr>
+        <tr><td port="0" align="left">order_number: string</td></tr>
+        <tr><td port="1" align="left">order_line_number: string</td></tr>
+        <tr><td port="2" align="left">order_type_code: string</td></tr>
+        <tr><td port="3" align="left">order_date: timestamp</td></tr>
+        <tr><td port="4" align="left">doc_date: timestamp</td></tr>
+        <tr><td port="5" align="left">market_id: string</td></tr>
+        <tr><td port="6" align="left">sap_signature_code: string</td></tr>
+        <tr><td port="7" align="left">ident_source_code: string</td></tr>
+        <tr><td port="8" align="left">counter_id: string</td></tr>
+        <tr><td port="9" align="left">mall_name: string</td></tr>
+        <tr><td port="10" align="left">channel_name: string</td></tr>
+        <tr><td port="11" align="left">channel_mode_code: string</td></tr>
+        <tr><td port="12" align="left">ba_id: string</td></tr>
+        <tr><td port="13" align="left">person_id: string</td></tr>
+        <tr><td port="14" align="left">sap_product_code: string</td></tr>
+        <tr><td port="15" align="left">sap_item_code: string</td></tr>
+        <tr><td port="16" align="left">product_origin_code: string</td></tr>
+        <tr><td port="17" align="left">bar_code: string</td></tr>
+        <tr><td port="18" align="left">order_quantity: int</td></tr>
+        <tr><td port="19" align="left">order_price_amount: decimal(22,7)</td></tr>
+        <tr><td port="20" align="left">incl_amt_bf_disc_amount: decimal(22,7)</td></tr>
+        <tr><td port="21" align="left">excl_amt_af_disc_amount: decimal(22,7)</td></tr>
+        <tr><td port="22" align="left">excl_amt_bf_disc_amount: decimal(22,7)</td></tr>
+        <tr><td port="23" align="left">insert_timestamp: timestamp</td></tr>
+        <tr><td port="24" align="left">source_system_code: string</td></tr>
+        <tr><td port="25" align="left">batch_date: string</td></tr>
+        <tr><td port="26" align="left">doc_month_code: string</td></tr>
+    </table>>];
+  table23 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">korea.stg_gmv_sap_product</td></tr>
+        <tr><td port="0" align="left">sap_product_code: string</td></tr>
+        <tr><td port="1" align="left">sap_product_name: string</td></tr>
+        <tr><td port="2" align="left">sap_product_desc: string</td></tr>
+        <tr><td port="3" align="left">sap_signature_short_name: string</td></tr>
+        <tr><td port="4" align="left">hero_number: string</td></tr>
+        <tr><td port="5" align="left">hero_name: string</td></tr>
+        <tr><td port="6" align="left">insert_timestamp: timestamp</td></tr>
+        <tr><td port="7" align="left">source_system_code: string</td></tr>
+        <tr><td port="8" align="left">batch_date: string</td></tr>
+    </table>>];
+}
