@@ -27,7 +27,7 @@ class Table2Graph:
     ):
         self.table_info = table_info
 
-    def get_tables(self, databse_table_name=None):
+    def get_tables(self, databse_table_name=None, with_name=None, without_name=None):
         # transform header
         file_name = "JavisGraphDot"
         _file_header = "//  Description: Jarvis auto generation"
@@ -49,6 +49,26 @@ class Table2Graph:
             _from_table_list = list(set(_filter_relation_df['table_name_from']))
             _to_table_list = list(set(_filter_relation_df['table_name_to']))
             table_name_list = list(set(_from_table_list + _to_table_list))
+            if with_name:
+                _table_name_list = []
+                for table_name in table_name_list:
+                    if with_name in table_name:
+                        _table_name_list.append(table_name)
+                    else:
+                        pass
+                table_name_list = _table_name_list
+            else:
+                pass
+            if without_name:
+                _table_name_list = []
+                for table_name in table_name_list:
+                    if without_name not in table_name:
+                        _table_name_list.append(table_name)
+                    else:
+                        pass
+                table_name_list = _table_name_list
+            else:
+                pass
             file_body, relation_script, relation_df = self.get_file_body(table_name_list)
         else:
             pass
@@ -101,12 +121,15 @@ class Table2Graph:
                                             "cellborder=\"1\" " \
                                             "cellspacing=\"0\" " \
                                             "cellpadding=\"4\">"
-            if "_fact_" in _table_name:
+            if (
+                    "_fact_" in _table_name or
+                    "rpt_" in _table_name
+            ):
                 _script_format = "\n        <tr><td bgcolor=\"#FCE6C9\">{}.{}</td></tr>"
             elif "_dim_" in _table_name:
                 _script_format = "\n        <tr><td bgcolor=\"#F0FFF0\">{}.{}</td></tr>"
             else:
-                _script_format = "\n        <tr><td bgcolor=\"#292421\">{}.{}</td></tr>"
+                _script_format = "\n        <tr><td bgcolor=\"#C0C0C0\">{}.{}</td></tr>"
             entity_script = entity_script + _script_format.format(_database_name, _table_name)
             _port = 0
             for index, row in table_body.iterrows():
@@ -195,46 +218,3 @@ class Table2Graph:
             _script_format = "\n  {}:{} -> {}:{};"
             relation_script = relation_script + _script_format.format(_table_from, _column_from, _table_to, _column_to)
         return relation_script, relation_df
-
-
-
-'''
-
-        _file_body = ""
-        table_id = 0
-        table_df = pd.DataFrame(
-            columns=(
-                'table',
-                'column',
-                'table_name',
-                'column_name',
-                'foreign_key'
-            )
-        )
-        for table in self.table_info:
-            # transform body
-            table_id, _entity_script, table_df = self.create_entity(table_id, table[0], table[1], table_df)
-            _file_body = _file_body + _entity_script
-        _relation_script = self.create_relation(table_df)
-        if table_name:
-            table_name_list = []
-
-            _file_body = ""
-            table_id = 0
-            table_df = pd.DataFrame(
-                columns=(
-                    'table',
-                    'column',
-                    'table_name',
-                    'column_name',
-                    'foreign_key'
-                )
-            )
-            for table in self.table_info:
-                # transform body
-                table_id, _entity_script, table_df = self.create_entity(
-                    table_id, table[0], table[1], table_df, table_name_list)
-                _file_body = _file_body + _entity_script
-            _relation_script = self.create_relation(table_df)
-            print('for individual table and its friends')
-'''

@@ -1,7 +1,7 @@
 
 //  Description: Jarvis auto generation
 //  Author: Jarvis
-//  Last Modified: 2021-01-15 15:00:52
+//  Last Modified: 2021-01-15 16:29:07
 
 digraph models_diagram{
     graph[layout=dot, rankdir=LR, overlap=false, splines=true];
@@ -41,6 +41,22 @@ digraph models_diagram{
     </table>>];
   table1 [shape=none, margin=0, label=<
     <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="#FCE6C9">korea.rpt_sellout_daily_agg_l1</td></tr>
+        <tr><td port="0" align="left">doc_date: timestamp</td></tr>
+        <tr><td port="1" align="left">channel_mode_code: string</td></tr>
+        <tr><td port="2" align="left">channel_name: string</td></tr>
+        <tr><td port="3" align="left">mall_name: string</td></tr>
+        <tr><td port="4" align="left">sap_signature_short_name: string</td></tr>
+        <tr><td port="5" align="left">month_short_desc: string</td></tr>
+        <tr><td port="6" align="left">prev_year_sellout_amount: decimal(22,7)</td></tr>
+        <tr><td port="7" align="left">actual_sellout_amount: decimal(22,7)</td></tr>
+        <tr><td port="8" align="left">insert_timestamp: timestamp</td></tr>
+        <tr><td port="9" align="left">source_system_code: string</td></tr>
+        <tr><td port="10" align="left">batch_date: string</td></tr>
+        <tr><td port="11" align="left">doc_month_code: string</td></tr>
+    </table>>];
+  table2 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
         <tr><td bgcolor="#F0FFF0">korea.itg_dim_mall</td></tr>
         <tr><td port="0" align="left">channel_name: string</td></tr>
         <tr><td port="1" align="left">mall_name: string</td></tr>
@@ -49,75 +65,35 @@ digraph models_diagram{
         <tr><td port="4" align="left">source_system_code: string</td></tr>
         <tr><td port="5" align="left">batch_date: string</td></tr>
     </table>>];
-  table2 [shape=none, margin=0, label=<
-    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
-        <tr><td bgcolor="#F0FFF0">korea.itg_dim_calendar</td></tr>
-        <tr><td port="0" align="left">date_id: int</td></tr>
-        <tr><td port="1" align="left">date: timestamp</td></tr>
-        <tr><td port="2" align="left">day: int</td></tr>
-        <tr><td port="3" align="left">day_desc: string</td></tr>
-        <tr><td port="4" align="left">week_num: int</td></tr>
-        <tr><td port="5" align="left">day_of_week: int</td></tr>
-        <tr><td port="6" align="left">day_of_week_desc: string</td></tr>
-        <tr><td port="7" align="left">week_start_date: timestamp</td></tr>
-        <tr><td port="8" align="left">week_end_date: timestamp</td></tr>
-        <tr><td port="9" align="left">month: int</td></tr>
-        <tr><td port="10" align="left">month_short_desc: string</td></tr>
-        <tr><td port="11" align="left">r3m_start_month: string</td></tr>
-        <tr><td port="12" align="left">last_month: string</td></tr>
-        <tr><td port="13" align="left">month_year: string</td></tr>
-        <tr><td port="14" align="left">quarter: string</td></tr>
-        <tr><td port="15" align="left">quarter_year: string</td></tr>
-        <tr><td port="16" align="left">semester: string</td></tr>
-        <tr><td port="17" align="left">semester_year: string</td></tr>
-        <tr><td port="18" align="left">year: int</td></tr>
-        <tr><td port="19" align="left">last_year_today: timestamp</td></tr>
-        <tr><td port="20" align="left">load_ts: timestamp</td></tr>
-        <tr><td port="21" align="left">workday_flag: string</td></tr>
-        <tr><td port="22" align="left">date_desc: string</td></tr>
-        <tr><td port="23" align="left">insert_timestamp: timestamp</td></tr>
-        <tr><td port="24" align="left">source_system_code: string</td></tr>
-        <tr><td port="25" align="left">batch_date: string</td></tr>
-    </table>>];
   table3 [shape=none, margin=0, label=<
     <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
-        <tr><td bgcolor="#FCE6C9">korea.itg_fact_sales_order_2</td></tr>
-        <tr><td port="0" align="left">order_number: string</td></tr>
-        <tr><td port="1" align="left">order_line_number: string</td></tr>
-        <tr><td port="2" align="left">order_type_code: string</td></tr>
-        <tr><td port="3" align="left">order_date: timestamp</td></tr>
-        <tr><td port="4" align="left">doc_date: timestamp</td></tr>
-        <tr><td port="5" align="left">market_id: string</td></tr>
-        <tr><td port="6" align="left">sap_signature_code: string</td></tr>
-        <tr><td port="7" align="left">ident_source_code: string</td></tr>
-        <tr><td port="8" align="left">counter_id: string</td></tr>
-        <tr><td port="9" align="left">mall_name: string</td></tr>
-        <tr><td port="10" align="left">channel_name: string</td></tr>
-        <tr><td port="11" align="left">channel_mode_code: string</td></tr>
-        <tr><td port="12" align="left">ba_id: string</td></tr>
-        <tr><td port="13" align="left">person_id: string</td></tr>
-        <tr><td port="14" align="left">sap_product_code: string</td></tr>
-        <tr><td port="15" align="left">sap_item_code: string</td></tr>
-        <tr><td port="16" align="left">product_origin_code: string</td></tr>
-        <tr><td port="17" align="left">bar_code: string</td></tr>
-        <tr><td port="18" align="left">order_quantity: int</td></tr>
-        <tr><td port="19" align="left">order_price_amount: decimal(22,7)</td></tr>
-        <tr><td port="20" align="left">incl_amt_bf_disc_amount: decimal(22,7)</td></tr>
-        <tr><td port="21" align="left">excl_amt_af_disc_amount: decimal(22,7)</td></tr>
-        <tr><td port="22" align="left">excl_amt_bf_disc_amount: decimal(22,7)</td></tr>
-        <tr><td port="23" align="left">insert_timestamp: timestamp</td></tr>
-        <tr><td port="24" align="left">source_system_code: string</td></tr>
-        <tr><td port="25" align="left">batch_date: string</td></tr>
-        <tr><td port="26" align="left">doc_month_code: string</td></tr>
+        <tr><td bgcolor="#FCE6C9">korea.rpt_kpi_sellout_performance_l1</td></tr>
+        <tr><td port="0" align="left">doc_date: timestamp</td></tr>
+        <tr><td port="1" align="left">doc_month_code: string</td></tr>
+        <tr><td port="2" align="left">channel_mode_code: string</td></tr>
+        <tr><td port="3" align="left">channel_name: string</td></tr>
+        <tr><td port="4" align="left">mall_name: string</td></tr>
+        <tr><td port="5" align="left">sap_signature_short_name: string</td></tr>
+        <tr><td port="6" align="left">month_short_desc: string</td></tr>
+        <tr><td port="7" align="left">prev_year_sellout_amount: decimal(22,7)</td></tr>
+        <tr><td port="8" align="left">actual_sellout_amount: decimal(22,7)</td></tr>
+        <tr><td port="9" align="left">budget_amount: decimal(22,7)</td></tr>
+        <tr><td port="10" align="left">trend_target_amount: decimal(22,7)</td></tr>
+        <tr><td port="11" align="left">commercial_target_amount: decimal(22,7)</td></tr>
+        <tr><td port="12" align="left">achieve_budget_pct: decimal(22,7)</td></tr>
+        <tr><td port="13" align="left">achieve_trend_pct: decimal(22,7)</td></tr>
+        <tr><td port="14" align="left">achieve_target_pct: decimal(22,7)</td></tr>
+        <tr><td port="15" align="left">evol_pct: decimal(22,7)</td></tr>
+        <tr><td port="16" align="left">insert_timestamp: timestamp</td></tr>
+        <tr><td port="17" align="left">source_system_code: string</td></tr>
+        <tr><td port="18" align="left">batch_date: string</td></tr>
     </table>>];
-  table0:6 -> table1:2;
-  table0:9 -> table1:1;
-  table0:10 -> table1:0;
-  table0:3 -> table2:1;
-  table0:4 -> table2:1;
-  table3:6 -> table1:2;
-  table3:9 -> table1:1;
-  table3:10 -> table1:0;
-  table3:3 -> table2:1;
+  table0:9 -> table2:1;
+  table0:10 -> table2:0;
+  table1:2 -> table2:0;
+  table1:3 -> table2:1;
+  table1:4 -> table2:2;
+  table3:3 -> table2:0;
   table3:4 -> table2:1;
+  table3:5 -> table2:2;
 }

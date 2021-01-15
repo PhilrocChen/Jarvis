@@ -20,11 +20,14 @@ import subprocess
 
 
 def main():
-    data = Excel("OneData_DataModel_KOREA_2021.xlsm")
+    data = Excel("OneData_DataModel_KOREA_20210115.xlsm")
     table_info = TableInfo(cf.TABLE_INFO_FROM_CONFIG_LIST[0], data)
     graph = Table2Graph(table_info.table_info)
-    graph.get_tables()
-    # graph.get_tables('korea.itg_fact_sales_order')
+    graph.get_tables(
+        databse_table_name='korea.itg_dim_mall',
+        with_name='korea',
+        without_name='stg'
+    )
 
     graphdot = "JavisGraphDot.txt"
     graph = "JavisGraph.svg"
