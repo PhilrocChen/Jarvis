@@ -24,7 +24,8 @@ def main():
     table_info = TableInfo(cf.TABLE_INFO_FROM_CONFIG_LIST[0], data)
     graph = Table2Graph(table_info.table_info)
     graph.get_tables(
-        databse_table_name='korea.itg_dim_mall',
+        database_table_name='korea.itg_dim_mall',
+        depth=1,
         with_name='korea',
         without_name='stg'
     )

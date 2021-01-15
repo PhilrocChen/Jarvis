@@ -1,7 +1,7 @@
 
 //  Description: Jarvis auto generation
 //  Author: Jarvis
-//  Last Modified: 2021-01-15 16:29:07
+//  Last Modified: 2021-01-15 17:35:06
 
 digraph models_diagram{
     graph[layout=dot, rankdir=LR, overlap=false, splines=true];
@@ -9,6 +9,22 @@ digraph models_diagram{
     edge [style=filled];
 
   table0 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="#FCE6C9">korea.rpt_sellout_daily_agg_l1</td></tr>
+        <tr><td port="0" align="left">doc_date: timestamp</td></tr>
+        <tr><td port="1" align="left">channel_mode_code: string</td></tr>
+        <tr><td port="2" align="left">channel_name: string</td></tr>
+        <tr><td port="3" align="left">mall_name: string</td></tr>
+        <tr><td port="4" align="left">sap_signature_short_name: string</td></tr>
+        <tr><td port="5" align="left">month_short_desc: string</td></tr>
+        <tr><td port="6" align="left">prev_year_sellout_amount: decimal(22,7)</td></tr>
+        <tr><td port="7" align="left">actual_sellout_amount: decimal(22,7)</td></tr>
+        <tr><td port="8" align="left">insert_timestamp: timestamp</td></tr>
+        <tr><td port="9" align="left">source_system_code: string</td></tr>
+        <tr><td port="10" align="left">batch_date: string</td></tr>
+        <tr><td port="11" align="left">doc_month_code: string</td></tr>
+    </table>>];
+  table1 [shape=none, margin=0, label=<
     <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
         <tr><td bgcolor="#FCE6C9">korea.itg_fact_sales_order</td></tr>
         <tr><td port="0" align="left">order_number: string</td></tr>
@@ -39,33 +55,7 @@ digraph models_diagram{
         <tr><td port="25" align="left">batch_date: string</td></tr>
         <tr><td port="26" align="left">doc_month_code: string</td></tr>
     </table>>];
-  table1 [shape=none, margin=0, label=<
-    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
-        <tr><td bgcolor="#FCE6C9">korea.rpt_sellout_daily_agg_l1</td></tr>
-        <tr><td port="0" align="left">doc_date: timestamp</td></tr>
-        <tr><td port="1" align="left">channel_mode_code: string</td></tr>
-        <tr><td port="2" align="left">channel_name: string</td></tr>
-        <tr><td port="3" align="left">mall_name: string</td></tr>
-        <tr><td port="4" align="left">sap_signature_short_name: string</td></tr>
-        <tr><td port="5" align="left">month_short_desc: string</td></tr>
-        <tr><td port="6" align="left">prev_year_sellout_amount: decimal(22,7)</td></tr>
-        <tr><td port="7" align="left">actual_sellout_amount: decimal(22,7)</td></tr>
-        <tr><td port="8" align="left">insert_timestamp: timestamp</td></tr>
-        <tr><td port="9" align="left">source_system_code: string</td></tr>
-        <tr><td port="10" align="left">batch_date: string</td></tr>
-        <tr><td port="11" align="left">doc_month_code: string</td></tr>
-    </table>>];
   table2 [shape=none, margin=0, label=<
-    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
-        <tr><td bgcolor="#F0FFF0">korea.itg_dim_mall</td></tr>
-        <tr><td port="0" align="left">channel_name: string</td></tr>
-        <tr><td port="1" align="left">mall_name: string</td></tr>
-        <tr><td port="2" align="left">sap_signature_short_name: string</td></tr>
-        <tr><td port="3" align="left">insert_timestamp: timestamp</td></tr>
-        <tr><td port="4" align="left">source_system_code: string</td></tr>
-        <tr><td port="5" align="left">batch_date: string</td></tr>
-    </table>>];
-  table3 [shape=none, margin=0, label=<
     <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
         <tr><td bgcolor="#FCE6C9">korea.rpt_kpi_sellout_performance_l1</td></tr>
         <tr><td port="0" align="left">doc_date: timestamp</td></tr>
@@ -88,12 +78,22 @@ digraph models_diagram{
         <tr><td port="17" align="left">source_system_code: string</td></tr>
         <tr><td port="18" align="left">batch_date: string</td></tr>
     </table>>];
-  table0:9 -> table2:1;
-  table0:10 -> table2:0;
-  table1:2 -> table2:0;
-  table1:3 -> table2:1;
-  table1:4 -> table2:2;
-  table3:3 -> table2:0;
-  table3:4 -> table2:1;
-  table3:5 -> table2:2;
+  table3 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="#F0FFF0">korea.itg_dim_mall</td></tr>
+        <tr><td port="0" align="left">channel_name: string</td></tr>
+        <tr><td port="1" align="left">mall_name: string</td></tr>
+        <tr><td port="2" align="left">sap_signature_short_name: string</td></tr>
+        <tr><td port="3" align="left">insert_timestamp: timestamp</td></tr>
+        <tr><td port="4" align="left">source_system_code: string</td></tr>
+        <tr><td port="5" align="left">batch_date: string</td></tr>
+    </table>>];
+  table0:2 -> table3:0;
+  table0:3 -> table3:1;
+  table0:4 -> table3:2;
+  table1:9 -> table3:1;
+  table1:10 -> table3:0;
+  table2:3 -> table3:0;
+  table2:4 -> table3:1;
+  table2:5 -> table3:2;
 }

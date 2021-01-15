@@ -27,7 +27,7 @@ class Table2Graph:
     ):
         self.table_info = table_info
 
-    def get_tables(self, databse_table_name=None, with_name=None, without_name=None):
+    def get_tables(self, database_table_name=None, depth=1, with_name=None, without_name=None):
         # transform header
         file_name = "JavisGraphDot"
         _file_header = "//  Description: Jarvis auto generation"
@@ -40,36 +40,22 @@ class Table2Graph:
         _file_header = _file_header + "\n    node [shape=record, fontsize=11, fontname=\"Palatino−Italic\"];"
         _file_header = _file_header + "\n    edge [style=filled];"
         file_body, relation_script, relation_df = self.get_file_body()
-        if databse_table_name:
+        if database_table_name:
             # Filter on specific tables and reprocess
-            _filter_relation_df = relation_df[
-                (relation_df['table_name_from'] == databse_table_name) |
-                (relation_df['table_name_to'] == databse_table_name)
-            ]
-            _from_table_list = list(set(_filter_relation_df['table_name_from']))
-            _to_table_list = list(set(_filter_relation_df['table_name_to']))
-            table_name_list = list(set(_from_table_list + _to_table_list))
+            database_table_name_list = [database_table_name]
+            dp = 0
+            while dp < depth:
+                database_table_name_list = self.get_database_table_name_list(database_table_name_list, relation_df)
+                dp = dp + 1
             if with_name:
-                _table_name_list = []
-                for table_name in table_name_list:
-                    if with_name in table_name:
-                        _table_name_list.append(table_name)
-                    else:
-                        pass
-                table_name_list = _table_name_list
+                database_table_name_list = self.get_list_with_name(database_table_name_list, with_name)
             else:
                 pass
             if without_name:
-                _table_name_list = []
-                for table_name in table_name_list:
-                    if without_name not in table_name:
-                        _table_name_list.append(table_name)
-                    else:
-                        pass
-                table_name_list = _table_name_list
+                database_table_name_list = self.get_list_without_name(database_table_name_list, without_name)
             else:
                 pass
-            file_body, relation_script, relation_df = self.get_file_body(table_name_list)
+            file_body, relation_script, relation_df = self.get_file_body(database_table_name_list)
         else:
             pass
         file_body = file_body + relation_script
@@ -81,7 +67,44 @@ class Table2Graph:
         file_save.file_save()
         print(_script_format.format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), file_name))
 
-    def get_file_body(self, table_name_list=None):
+    @staticmethod
+    def get_database_table_name_list(database_table_name_list, relation_df):
+        # Filter on specific tables and reprocess
+        _filter_relation_df = pd.DataFrame()
+        for database_table_name in database_table_name_list:
+            _sub_filter_relation_df = relation_df[
+                (relation_df['table_name_from'] == database_table_name) |
+                (relation_df['table_name_to'] == database_table_name)
+                ]
+            _filter_relation_df = pd.concat([_filter_relation_df, _sub_filter_relation_df])
+        _from_table_list = list(set(_filter_relation_df['table_name_from']))
+        _to_table_list = list(set(_filter_relation_df['table_name_to']))
+        database_table_name_list = list(set(_from_table_list + _to_table_list))
+        return database_table_name_list
+
+    @staticmethod
+    def get_list_with_name(database_table_name_list, with_name):
+        _database_table_name_list = []
+        for database_table_name in database_table_name_list:
+            if with_name in database_table_name:
+                _database_table_name_list.append(database_table_name)
+            else:
+                pass
+        database_table_name_list = _database_table_name_list
+        return database_table_name_list
+
+    @staticmethod
+    def get_list_without_name(database_table_name_list, without_name):
+        _database_table_name_list = []
+        for database_table_name in database_table_name_list:
+            if without_name not in database_table_name:
+                _database_table_name_list.append(database_table_name)
+            else:
+                pass
+        database_table_name_list = _database_table_name_list
+        return database_table_name_list
+
+    def get_file_body(self, database_table_name_list=None):
         file_body = ""
         table_id = 0
         table_df = pd.DataFrame(
@@ -96,23 +119,23 @@ class Table2Graph:
         for table in self.table_info:
             # transform body
             table_id, _entity_script, table_df = self.create_entity(
-                table_id, table[0], table[1], table_df, table_name_list)
+                table_id, table[0], table[1], table_df, database_table_name_list)
             file_body = file_body + _entity_script
         relation_script, relation_df = self.create_relation(table_df)
         return file_body, relation_script, relation_df
 
     @staticmethod
-    def create_entity(table_id, table_header, table_body, table_df, table_name_list=None):
+    def create_entity(table_id, table_header, table_body, table_df, database_table_name_list=None):
         entity_script = ""
         _table = Table(table_header)
         _database_name = _table.database_name()
         _table_name = _table.table_name()
         if (
                 (
-                        table_name_list and
-                        (_database_name + '.' + _table_name) in table_name_list
+                        database_table_name_list and
+                        (_database_name + '.' + _table_name) in database_table_name_list
                 ) or
-                not table_name_list
+                not database_table_name_list
         ):
             _script_format = "\n  table{} [shape=none, margin=0, label=<"
             entity_script = entity_script + _script_format.format(table_id)
