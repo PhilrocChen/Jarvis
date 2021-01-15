@@ -12,6 +12,7 @@ import os
 import pandas as pd
 import conf.configuration as cf
 import src.error.file as fe
+import src.connector.excel4model as e4m
 
 
 class Excel:
@@ -21,7 +22,7 @@ class Excel:
             file
     ):
         self.file = file
-        self.file_path = os.path.join(cf.DATA, self.file)
+        self.file_path = e4m.Excel4Model(self.file).file_path
 
     def read_content(self):
         try:
