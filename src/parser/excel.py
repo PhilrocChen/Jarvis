@@ -29,7 +29,7 @@ class Excel:
             _content_df = pd.read_excel(self.file_path, sheet_name=cf.CONTENT)
             _physical_table_df = _content_df[
                 _content_df[cf.CONTENT_STRUCTURE[1][0]] == cf.CONTENT_STRUCTURE_PHYSICAL_MODEL
-            ]
+                ]
             physical_table_list = list(set(_physical_table_df[cf.CONTENT].dropna()))
             return physical_table_list
         except Exception as e:
@@ -37,22 +37,6 @@ class Excel:
             fe.content_miss()
 
     physical_table_list = property(read_content)
-
-    def read_tables(self):
-        table_info = []
-        if self.physical_table_list:
-            try:
-                for table in self.physical_table_list:
-                    _table_header = self.read_table_heard(table)
-                    _table_body = self.read_table_body(table)
-                    table_info.append([_table_header, _table_body])
-                return table_info
-            except Exception as e:
-                print(e)
-        else:
-            fe.sheet_miss()
-
-    table_info = property(read_tables)
 
     def read_table_heard(self, table):
         _table_info = pd.read_excel(self.file_path, sheet_name=table, header=0)

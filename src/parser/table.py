@@ -14,6 +14,106 @@ import pandas as pd
 import os
 
 
+class TableInfo:
+    def __init__(
+            self,
+            config,
+            excel=None
+    ):
+        self.config = config
+        self.excel = excel
+        self.header_read_csv = os.path.join(cf.DATA, 'Header.csv')
+        self.body_read_csv = os.path.join(cf.DATA, 'Body.csv')
+        self.header_write_csv = os.path.join(cf.EXP, 'Header.csv')
+        self.body_write_csv = os.path.join(cf.EXP, 'Body.csv')
+
+    def read_tables(self):
+        if self.config == cf.TABLE_INFO_FROM_CONFIG_LIST[0]:
+            table_info = []
+            if self.excel.physical_table_list:
+                try:
+                    for table in self.excel.physical_table_list:
+                        _table_header = self.excel.read_table_heard(table)
+                        _table_body = self.excel.read_table_body(table)
+                        table_info.append([_table_header, _table_body])
+                    return table_info
+                except Exception as e:
+                    print(e)
+            else:
+                fe.sheet_miss()
+        elif self.config == cf.TABLE_INFO_FROM_CONFIG_LIST[1]:
+            table_info = self.table_info_from_dataframe()
+            return table_info
+        else:
+            pass
+
+    table_info = property(read_tables)
+
+    def table_info_to_dataframe(self):
+        _table_info = self.table_info
+        header_df = pd.DataFrame()
+        body_df = pd.DataFrame()
+        for table in range(len(_table_info)):
+            _header_value_list = _table_info[table][0]
+            _header_list = [
+                {
+                    cf.TABLE_HEADER_STRUCTURE[0][0]: _header_value_list[0],
+                    cf.TABLE_HEADER_STRUCTURE[1][0]: _header_value_list[1],
+                    cf.TABLE_HEADER_STRUCTURE[2][0]: _header_value_list[2],
+                    cf.TABLE_HEADER_STRUCTURE[3][0]: _header_value_list[3],
+                    cf.TABLE_HEADER_STRUCTURE[4][0]: _header_value_list[4],
+                    cf.TABLE_HEADER_STRUCTURE[5][0]: _header_value_list[5],
+                    cf.TABLE_HEADER_STRUCTURE[6][0]: _header_value_list[6],
+                    cf.TABLE_HEADER_STRUCTURE[7][0]: _header_value_list[7],
+                    cf.TABLE_HEADER_STRUCTURE[8][0]: _header_value_list[8],
+                    cf.TABLE_HEADER_STRUCTURE[9][0]: _header_value_list[9],
+                    cf.TABLE_HEADER_STRUCTURE[10][0]: _header_value_list[10],
+                    cf.TABLE_HEADER_STRUCTURE[11][0]: _header_value_list[11],
+                    cf.TABLE_HEADER_STRUCTURE[12][0]: _header_value_list[12],
+                    cf.TABLE_HEADER_STRUCTURE[13][0]: _header_value_list[13],
+                    cf.TABLE_HEADER_STRUCTURE[14][0]: _header_value_list[14]
+                }
+            ]
+            header_df = header_df.append(pd.DataFrame(_header_list))
+            _body_df = _table_info[table][1]
+            _body_df[cf.TABLE_HEADER_STRUCTURE[0][0]] = _header_value_list[0]
+            _body_df[cf.TABLE_HEADER_STRUCTURE[1][0]] = _header_value_list[1]
+            body_df = body_df.append(_body_df)
+        return header_df, body_df
+
+    def table_info_from_dataframe(self):
+        table_info = []
+        _header_df, _body_df = self.read_csv()
+        for index_1, row_1 in _header_df.iterrows():
+            _sub_header_list = row_1.to_list()
+            _sub_body_df = _body_df[
+                (_body_df[cf.TABLE_HEADER_STRUCTURE[0][0]] == row_1[cf.TABLE_HEADER_STRUCTURE[0][0]]) &
+                (_body_df[cf.TABLE_HEADER_STRUCTURE[1][0]] == row_1[cf.TABLE_HEADER_STRUCTURE[1][0]])
+            ].drop([cf.TABLE_HEADER_STRUCTURE[0][0], cf.TABLE_HEADER_STRUCTURE[1][0]], axis=1)
+            table_info.append([_sub_header_list, _sub_body_df])
+        return table_info
+
+    def write_csv(self):
+        header_df, body_df = self.table_info_to_dataframe()
+        header_df.to_csv(
+            self.header_write_csv,
+            index=False, mode='w', encoding='utf-8',
+        )
+        body_df.to_csv(
+            self.body_write_csv,
+            index=False, mode='w', encoding='utf-8',
+        )
+
+    def read_csv(self):
+        header_df = pd.read_csv(
+            self.header_read_csv
+        )
+        body_df = pd.read_csv(
+            self.body_read_csv
+        )
+        return header_df, body_df
+
+
 class Table:
     def __init__(self, info):
         self.info = info
@@ -142,11 +242,11 @@ class Table:
             pass
         return data_file_location
 
-    def partitioned_by(self, partition_key_list):
+    @staticmethod
+    def partitioned_by(partition_key_list):
         """
 
         :param partition_key_list:
-        :param self:
         """
         partitioned_by = ""
         for i in partition_key_list:

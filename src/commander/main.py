@@ -20,7 +20,7 @@ def main():
     data = Excel("OneData_DataModel_KOREA_2021.xlsm")
     # ddl = TableInfo(data.table_info)
     # ddl.get_tables()
-    table_info = TableInfo(data, cf.TABLE_INFO_FROM_CONFIG_LIST[0])
+    table_info = TableInfo(cf.TABLE_INFO_FROM_CONFIG_LIST[0], data)
     graph = Table2Graph(table_info.read_tables())
     graph.get_tables()
 
