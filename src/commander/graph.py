@@ -25,7 +25,6 @@ def main():
     graph = Table2Graph(table_info.table_info)
     graph.get_tables(
         database_table_name='korea.itg_dim_mall',
-        depth=1,
         with_name='korea',
         without_name='stg'
     )
