@@ -1,0 +1,87 @@
+Column Logic Name,Column Physical Name,Column Type,Primary Key,Foreign Key,Partition Key,Nullable,Private Default Value,Column Comment,Data Validation,Database name,Table name
+header_order_num,order_number,string,Y,,N,Y,,header_order_num,,korea,itg_fact_sales_order
+line_line_num,order_line_number,string,Y,,N,Y,,line_line_num,,korea,itg_fact_sales_order
+line_type,order_type_code,string,N,,N,Y,,line_type,,korea,itg_fact_sales_order
+header_order_dt,order_date,timestamp,N,date ,N,Y,,header_order_dt,,korea,itg_fact_sales_order
+header_doc_dt,doc_date,timestamp,N,date ,N,Y,,header_doc_dt,,korea,itg_fact_sales_order
+header_country,market_id,string,N,,N,Y,,header_country,,korea,itg_fact_sales_order
+header_organization,sap_signature_code,string,N,sap_signature_short_name,N,Y,,header_organization,,korea,itg_fact_sales_order
+header_ident_source,ident_source_code,string,N,,N,Y,,header_ident_source,,korea,itg_fact_sales_order
+header_counter_id,counter_id,string,N,,N,Y,,header_counter_id,,korea,itg_fact_sales_order
+mall_name ,mall_name ,string ,N,mall_name ,N,Y,,mall_name ,,korea,itg_fact_sales_order
+channel_name ,channel_name ,string ,N,channel_name ,N,Y,,channel_name ,,korea,itg_fact_sales_order
+channel_mode_code,channel_mode_code,string ,N,,N,Y,,channel_mode_code,,korea,itg_fact_sales_order
+header_ba_id,ba_id,string,N,,N,Y,,header_ba_id,,korea,itg_fact_sales_order
+header_person_id,person_id,string,N,,N,Y,,header_person_id,,korea,itg_fact_sales_order
+line_product,sap_product_code,string,N,,N,Y,,line_product,,korea,itg_fact_sales_order
+line_sap_item_code,sap_item_code,string,N,,N,Y,,line_sap_item_code,,korea,itg_fact_sales_order
+line_product_origin,product_origin_code,string,N,,N,Y,,line_product_origin,,korea,itg_fact_sales_order
+line_bar_code,bar_code,string,N,,N,Y,,line_bar_code,,korea,itg_fact_sales_order
+line_quantity,order_quantity,int,N,,N,Y,,line_quantity,,korea,itg_fact_sales_order
+line_price,order_price_amount,"decimal(22,7)",N,,N,Y,,line_price,,korea,itg_fact_sales_order
+line_incl_amt_bf_disc,incl_amt_bf_disc_amount,"decimal(22,7)",N,,N,Y,,line_incl_amt_bf_disc,,korea,itg_fact_sales_order
+line_excl_amt_af_disc,excl_amt_af_disc_amount,"decimal(22,7)",N,,N,Y,,line_excl_amt_af_disc,,korea,itg_fact_sales_order
+line_excl_amt_bf_disc,excl_amt_bf_disc_amount,"decimal(22,7)",N,,N,Y,,line_excl_amt_bf_disc,,korea,itg_fact_sales_order
+insert_timestamp,insert_timestamp,timestamp,N,,N,Y,current_timestamp,insert_timestamp,,korea,itg_fact_sales_order
+source_system_code,source_system_code,string,N,,N,Y,MARS,source_system_code,,korea,itg_fact_sales_order
+batch_date,batch_date,string,N,,N,Y,string of (CURRENT_DATE),batch_date,,korea,itg_fact_sales_order
+doc_month_code,doc_month_code,string,N,,Y,N,,"month code from header_doc_dt, exp: 202010",,korea,itg_fact_sales_order
+date_id ,date_id ,int ,Y,,N,Y,,date_id ,,korea,itg_dim_calendar
+date ,date ,timestamp ,N,date ,N,Y,,date ,,korea,itg_dim_calendar
+day ,day ,int ,N,,N,Y,,day ,,korea,itg_dim_calendar
+day_desc ,day_desc ,string ,N,,N,Y,,day_desc ,,korea,itg_dim_calendar
+week_num ,week_num ,int ,N,,N,Y,,week_num ,,korea,itg_dim_calendar
+day_of_week ,day_of_week ,int ,N,,N,Y,,day_of_week ,,korea,itg_dim_calendar
+day_of_week_desc,day_of_week_desc,string ,N,,N,Y,,day_of_week_desc,,korea,itg_dim_calendar
+week_start_date ,week_start_date ,timestamp ,N,,N,Y,,week_start_date ,,korea,itg_dim_calendar
+week_end_date ,week_end_date ,timestamp ,N,,N,Y,,week_end_date ,,korea,itg_dim_calendar
+month ,month ,int ,N,,N,Y,,month ,,korea,itg_dim_calendar
+month_short_desc,month_short_desc,string ,N,,N,Y,,month_short_desc,,korea,itg_dim_calendar
+r3m_start_month ,r3m_start_month ,string ,N,,N,Y,,r3m_start_month ,,korea,itg_dim_calendar
+last_month ,last_month ,string ,N,,N,Y,,last_month ,,korea,itg_dim_calendar
+month_year ,month_year ,string ,N,,N,Y,,month_year ,,korea,itg_dim_calendar
+quarter ,quarter ,string ,N,,N,Y,,quarter ,,korea,itg_dim_calendar
+quarter_year ,quarter_year ,string ,N,,N,Y,,quarter_year ,,korea,itg_dim_calendar
+semester ,semester ,string ,N,,N,Y,,semester ,,korea,itg_dim_calendar
+semester_year ,semester_year ,string ,N,,N,Y,,semester_year ,,korea,itg_dim_calendar
+year ,year ,int ,N,,N,Y,,year ,,korea,itg_dim_calendar
+last_year_today ,last_year_today ,timestamp ,N,,N,Y,,last_year_today ,,korea,itg_dim_calendar
+load_ts ,load_ts ,timestamp,N,,N,Y,,load_ts ,,korea,itg_dim_calendar
+workday_flag,workday_flag,string ,N,,N,Y,,workday_flag,,korea,itg_dim_calendar
+date_desc,date_desc,string ,N,,N,Y,,date_desc,,korea,itg_dim_calendar
+insert_timestamp,insert_timestamp,timestamp,N,,N,Y,current_timestamp,insert_timestamp,,korea,itg_dim_calendar
+source_system_code,source_system_code,string,N,,N,Y,Manual,source_system_code,,korea,itg_dim_calendar
+batch_date,batch_date,string,N,,N,Y,string of (CURRENT_DATE),batch_date,,korea,itg_dim_calendar
+channel_name,channel_name,string,N,channel_name,N,Y,,channel_name,,korea,itg_dim_mall
+mall_name,mall_name,string,Y,mall_name,N,Y,,mall_name,,korea,itg_dim_mall
+sap_signature_short_name,sap_signature_short_name,string,Y,sap_signature_short_name,N,Y,,sap_signature_short_name,,korea,itg_dim_mall
+insert_timestamp,insert_timestamp,timestamp,N,,N,Y,current_timestamp,insert_timestamp,,korea,itg_dim_mall
+source_system_code,source_system_code,string,N,,N,Y,Manual,source_system_code,,korea,itg_dim_mall
+batch_date,batch_date,string,N,,N,Y,string of (CURRENT_DATE),batch_date,,korea,itg_dim_mall
+header_order_num,order_number,string,Y,,N,Y,,header_order_num,,korea,itg_fact_sales_order_2
+line_line_num,order_line_number,string,Y,,N,Y,,line_line_num,,korea,itg_fact_sales_order_2
+line_type,order_type_code,string,N,,N,Y,,line_type,,korea,itg_fact_sales_order_2
+header_order_dt,order_date,timestamp,N,date ,N,Y,,header_order_dt,,korea,itg_fact_sales_order_2
+header_doc_dt,doc_date,timestamp,N,date ,N,Y,,header_doc_dt,,korea,itg_fact_sales_order_2
+header_country,market_id,string,N,,N,Y,,header_country,,korea,itg_fact_sales_order_2
+header_organization,sap_signature_code,string,N,sap_signature_short_name,N,Y,,header_organization,,korea,itg_fact_sales_order_2
+header_ident_source,ident_source_code,string,N,,N,Y,,header_ident_source,,korea,itg_fact_sales_order_2
+header_counter_id,counter_id,string,N,,N,Y,,header_counter_id,,korea,itg_fact_sales_order_2
+mall_name ,mall_name ,string ,N,mall_name ,N,Y,,mall_name ,,korea,itg_fact_sales_order_2
+channel_name ,channel_name ,string ,N,channel_name ,N,Y,,channel_name ,,korea,itg_fact_sales_order_2
+channel_mode_code,channel_mode_code,string ,N,,N,Y,,channel_mode_code,,korea,itg_fact_sales_order_2
+header_ba_id,ba_id,string,N,,N,Y,,header_ba_id,,korea,itg_fact_sales_order_2
+header_person_id,person_id,string,N,,N,Y,,header_person_id,,korea,itg_fact_sales_order_2
+line_product,sap_product_code,string,N,,N,Y,,line_product,,korea,itg_fact_sales_order_2
+line_sap_item_code,sap_item_code,string,N,,N,Y,,line_sap_item_code,,korea,itg_fact_sales_order_2
+line_product_origin,product_origin_code,string,N,,N,Y,,line_product_origin,,korea,itg_fact_sales_order_2
+line_bar_code,bar_code,string,N,,N,Y,,line_bar_code,,korea,itg_fact_sales_order_2
+line_quantity,order_quantity,int,N,,N,Y,,line_quantity,,korea,itg_fact_sales_order_2
+line_price,order_price_amount,"decimal(22,7)",N,,N,Y,,line_price,,korea,itg_fact_sales_order_2
+line_incl_amt_bf_disc,incl_amt_bf_disc_amount,"decimal(22,7)",N,,N,Y,,line_incl_amt_bf_disc,,korea,itg_fact_sales_order_2
+line_excl_amt_af_disc,excl_amt_af_disc_amount,"decimal(22,7)",N,,N,Y,,line_excl_amt_af_disc,,korea,itg_fact_sales_order_2
+line_excl_amt_bf_disc,excl_amt_bf_disc_amount,"decimal(22,7)",N,,N,Y,,line_excl_amt_bf_disc,,korea,itg_fact_sales_order_2
+insert_timestamp,insert_timestamp,timestamp,N,,N,Y,current_timestamp,insert_timestamp,,korea,itg_fact_sales_order_2
+source_system_code,source_system_code,string,N,,N,Y,MARS,source_system_code,,korea,itg_fact_sales_order_2
+batch_date,batch_date,string,N,,N,Y,string of (CURRENT_DATE),batch_date,,korea,itg_fact_sales_order_2
+doc_month_code,doc_month_code,string,N,,Y,N,,"month code from header_doc_dt, exp: 202010",,korea,itg_fact_sales_order_2

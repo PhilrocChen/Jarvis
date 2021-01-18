@@ -1,3 +1,4 @@
+
 digraph models_diagram{
     graph[rankdir=LR, overlap=false, splines=true];
     node [shape=record, fontsize=11, fontname="Verdana"];
@@ -9,6 +10,18 @@ digraph models_diagram{
         <tr><td port="1" align="left">TABLE_1_ID: integer</td></tr>
     </table>>];
   table1 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">Table 1</td></tr>
+        <tr><td port="0" align="left">ID: integer</td></tr>
+        <tr><td port="1" align="left">NAME: string</td></tr>
+    </table>>];
+  table2 [shape=none, margin=0, label=<
+    <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+        <tr><td bgcolor="lightblue">Table 1</td></tr>
+        <tr><td port="0" align="left">ID: integer</td></tr>
+        <tr><td port="1" align="left">NAME: string</td></tr>
+    </table>>];
+  table3 [shape=none, margin=0, label=<
     <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
         <tr><td bgcolor="lightblue">Table 1</td></tr>
         <tr><td port="0" align="left">ID: integer</td></tr>

@@ -11,8 +11,8 @@ Purpose:
 import datetime
 import conf.configuration as cf
 import src.error.file as fe
-from src.database.table import Table
-from src.file.save2exp import Save2Exp
+from src.parser.table import Table
+from src.generator.save2exp import Save2Exp
 
 
 class Table2DDL:
@@ -26,19 +26,19 @@ class Table2DDL:
     def get_tables(self):
         # try:
         for table in self.table_info:
-            # file header
+            # transform header
             _file_header = "\n--  Description: Jarvis auto generation"
             _file_header = _file_header + "\n--  Author: Jarvis"
             _date_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             _script_format = "\n--  Last Modified: {}"
             _file_header = _file_header + _script_format.format(_date_time)
-            # file body
+            # transform body
             body_script, partition_key_list = self.create_body(table[0], table[1])
             file_name, header_script, tail_script = self.create_header_tail(table[0], partition_key_list)
             _script_format = "{}\n\n\n{}\n{}\n{}"
             script = _script_format.format(_file_header, header_script, body_script, tail_script)
             _script_format = "{}: Script generated successfully: {}"
-            file_save = Save2Exp(file_name, script)
+            file_save = Save2Exp(cf.SAVE2EXP_FILE_TYPE_LIST[0], file_name, script)
             file_save.file_save()
             print(_script_format.format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), file_name))
         # except Exception as e:
@@ -75,7 +75,7 @@ class Table2DDL:
         _table = Table(table_header)
         _table_layer = _table.table_layer()
         for index, row in table_body.iterrows():
-            _column_partition_key = str(row[cf.TABLE_BODY_STRUCTURE[4]]).strip()
+            _column_partition_key = str(row[cf.TABLE_BODY_STRUCTURE[5]]).strip()
             if _column_partition_key == cf.TABLE_BODY_PARTITION_KEY_LIST[0]:
                 partition_key_list.append(str(row[cf.TABLE_BODY_STRUCTURE[1]]).strip())
             else:
@@ -85,12 +85,12 @@ class Table2DDL:
                     _column_type = "String"
                 else:
                     _column_type = str(row[cf.TABLE_BODY_STRUCTURE[2]]).strip()
-                _column_comment = str(row[cf.TABLE_BODY_STRUCTURE[7]]).strip()
+                _column_comment = str(row[cf.TABLE_BODY_STRUCTURE[8]]).strip()
                 # Mandatory check
                 _check_key_list = [
                     cf.TABLE_BODY_STRUCTURE[1],
                     cf.TABLE_BODY_STRUCTURE[2],
-                    cf.TABLE_BODY_STRUCTURE[7]
+                    cf.TABLE_BODY_STRUCTURE[8]
                 ]
                 _check_value_list = [
                     _column_physical_name,

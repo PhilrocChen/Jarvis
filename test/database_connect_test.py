@@ -11,8 +11,7 @@ Purpose:
 import unittest
 import os
 import conf.configuration as cf
-import src.database.mysql as mysql
-import src.database.sqlserver as sqlserver
+import src.connector.mysql as mysql
 
 
 class DatabaseConnect(unittest.TestCase):

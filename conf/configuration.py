@@ -49,7 +49,7 @@ TABLE_HEADER_STRUCTURE = [
     ['Quote Char', [7, 1]],
     ['Separator Char', [8, 1]],
     ['Serialization Encoding', [9, 1]],
-    ['Data file location (External table and file loading)', [10, 1]],
+    ['Data transform location (External table and transform loading)', [10, 1]],
     ['Clustered by (Clustered Only)', [11, 1]],
     ['Sorted by (Clustered Only)', [12, 1]],
     ['Buckets number (Clustered Only)', [13, 1]],
@@ -61,11 +61,12 @@ TABLE_BODY_STRUCTURE = [
     'Column Physical Name',  # Column 1
     'Column Type',  # Column 2
     'Primary Key',  # Column 3
-    'Partition Key',  # Column 4
-    'Nullable',  # Column 5
-    'Private Default Value',  # Column 6
-    'Column Comment',  # Column 7
-    'Data Validation',  # Column 8
+    'Foreign Key',  # Column 4
+    'Partition Key',  # Column 5
+    'Nullable',  # Column 6
+    'Private Default Value',  # Column 7
+    'Column Comment',  # Column 8
+    'Data Validation',  # Column 9
 ]
 TABLE_BODY_PARTITION_KEY_LIST = ['Y']
 
@@ -84,7 +85,7 @@ ROW_FORMAT_SERDE_LIST = [
 """
 Mysql Database
 """
-MYSQL_HOST = 'yimian.mysql.database.chinacloudapi.cn'
+MYSQL_HOST = 'yimian.mysql.parser.chinacloudapi.cn'
 MYSQL_PORT = 3306
 MYSQL_USER = 'lrl_apac@yimian'
 MYSQL_PASSWORD = 'WCQNA5+{c[n1'
@@ -95,8 +96,17 @@ MYSQL_CHARSET = 'utf8mb4'
 SqlServer Database
 One Data Audit
 """
-SQLSERVER_SERVER = 'sgapacsagdbp1a.283e64fb58c7.database.windows.net'
+SQLSERVER_SERVER = 'sgapacsagdbp1a.283e64fb58c7.parser.windows.net'
 SQLSERVER_USER = 'adp_etlaudit'
 SQLSERVER_PASSWORD = 'adp_etlaudit123'
 SQLSERVER_DATABASE = 'ADP_ETL_Audit'
 
+"""
+src.parser.table
+"""
+TABLE_INFO_FROM_CONFIG_LIST = ['Excel', 'CSV']
+
+"""
+src.generator.save2exp
+"""
+SAVE2EXP_FILE_TYPE_LIST = ['HQL', 'TXT']
