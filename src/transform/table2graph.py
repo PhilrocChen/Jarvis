@@ -10,13 +10,12 @@ Purpose:
 
 import datetime
 import conf.configuration as cf
+import conf.graphviz.graph as gf
+import conf.graphviz.node as nd
+import conf.graphviz.edge as eg
 import pandas as pd
 from src.parser.table import Table
 from src.generator.save2exp import Save2Exp
-
-'''
- dot -Tsvg JavisGraphDot.txt -o JavisGraph.svg
-'''
 
 
 class Table2Graph:
@@ -28,15 +27,28 @@ class Table2Graph:
         self.table_info = table_info
 
     def get_tables(self, database_table_name=None, depth=1, with_name=None, without_name=None):
-        # transform header
+        graph = gf.Graph()
+        node = nd.Node()
+        edge = eg.Edge()
+        # Generate header
         file_name = "JavisGraphDot"
-        _file_header = "//  Description: Jarvis auto generation"
-        _file_header = _file_header + "\n//  Author: Jarvi" \
-                                      "\n//  Last Modified: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}" \
-                                      "\n\ndigraph models_diagram{" \
-                                      "\n    graph[layout=dot, rankdir=LR, overlap=false, splines=true];" \
-                                      "\n    node [shape=record, fontsize=11, fontname=\"Palatino−Italic\"];" \
-                                      "\n    edge [style=filled];"
+        file_header = f"//  Description: Jarvis auto generation" \
+                      f"\n//  Author: Jarvi" \
+                      f"\n//  Last Modified: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        # Generate graph
+        file_header += f"\n\ndigraph models_diagram""{" \
+                       f"\n    graph[" \
+                       f"layout={graph.set_layout()}, " \
+                       f"rankdir={graph.set_rankdir()}, " \
+                       f"overlap={graph.set_overlap()}, " \
+                       f"splines={graph.set_splines()}];" \
+                       f"\n    node [" \
+                       f"shape={node.set_shape()}, " \
+                       f"fontsize={node.set_fontsize()}, " \
+                       f"fontname=\"{node.set_fontname()}\"];" \
+                       f"\n    edge [" \
+                       f"style={edge.set_style()}" \
+                       f"];"
         file_body, relation_script, relation_df = self.get_file_body()
         if database_table_name:
             # Filter on specific tables and reprocess
@@ -57,8 +69,8 @@ class Table2Graph:
         else:
             pass
         file_body = file_body + relation_script
-        _file_tail = "}"
-        script = f"{_file_header}\n{file_body}\n{_file_tail}"
+        file_tail = "}"
+        script = f"{file_header}\n{file_body}\n{file_tail}"
         file_save = Save2Exp(cf.SAVE2EXP_FILE_TYPE_LIST[1], file_name, script)
         file_save.file_save()
         print(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}: Script generated successfully: {file_name}")
