@@ -25,14 +25,14 @@ def main():
     graph = Table2Graph(table_info.table_info)
     graph.get_tables(
         database_table_name='korea.itg_dim_mall',
+        depth=2,
         with_name='korea',
         without_name='stg'
     )
 
     graphdot = "JavisGraphDot.txt"
     graph = "JavisGraph.svg"
-    _script_format = "dot -Tsvg {} -o {}"
-    graph_script = _script_format.format(graphdot, graph)
+    graph_script = f"dot -Tsvg {graphdot} -o {graph}"
 
     os.chdir(cf.EXP)
     subprocess.run(graph_script, shell=True)

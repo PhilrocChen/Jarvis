@@ -24,25 +24,18 @@ class Table2DDL:
         self.table_info = table_info
 
     def get_tables(self):
-        # try:
         for table in self.table_info:
             # transform header
-            _file_header = "\n--  Description: Jarvis auto generation"
-            _file_header = _file_header + "\n--  Author: Jarvis"
-            _date_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            _script_format = "\n--  Last Modified: {}"
-            _file_header = _file_header + _script_format.format(_date_time)
+            _file_header = f"\n--  Description: Jarvis auto generation" \
+                           f"\n--  Author: Jarvis" \
+                           f"\n--  Last Modified: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
             # transform body
             body_script, partition_key_list = self.create_body(table[0], table[1])
             file_name, header_script, tail_script = self.create_header_tail(table[0], partition_key_list)
-            _script_format = "{}\n\n\n{}\n{}\n{}"
-            script = _script_format.format(_file_header, header_script, body_script, tail_script)
-            _script_format = "{}: Script generated successfully: {}"
+            script = f"{_file_header}\n\n\n{header_script}\n{body_script}\n{tail_script}"
             file_save = Save2Exp(cf.SAVE2EXP_FILE_TYPE_LIST[0], file_name, script)
             file_save.file_save()
-            print(_script_format.format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), file_name))
-        # except Exception as e:
-        #     print(e)
+            print(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}: Script generate successfully: {file_name}")
 
     def create_header_tail(self, table, partition_key_list):
         _table = Table(table)
@@ -51,8 +44,7 @@ class Table2DDL:
         _table_layer = _table.table_layer()
         _table_type = _table.table_type()
         # File name
-        _script_format = "ddl_tc_{}.{}"
-        file_name = _script_format.format(_database_name, _table_name)
+        file_name = f"ddl_tc_{_database_name}.{_table_name}"
         # Table type check
         if _table_type == cf.TABLE_TYPE_LIST[0]:
             if _table_layer == cf.TABLE_LAYER_LIST[0]:
@@ -64,8 +56,7 @@ class Table2DDL:
         else:
             header_script = ""
             tail_script = ""
-        _script_format = "{}: DDL header and tail built successful."
-        print(_script_format.format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
+        print(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}: DDL header and tail built successful.")
         return file_name, header_script, tail_script
 
     @staticmethod
@@ -79,8 +70,7 @@ class Table2DDL:
             if _column_partition_key == cf.TABLE_BODY_PARTITION_KEY_LIST[0]:
                 partition_key_list.append(str(row[cf.TABLE_BODY_STRUCTURE[1]]).strip())
             else:
-                _script_format = "`{}`"
-                _column_physical_name = _script_format.format(str(row[cf.TABLE_BODY_STRUCTURE[1]]).strip())
+                _column_physical_name = f"`{str(row[cf.TABLE_BODY_STRUCTURE[1]]).strip()}`"
                 if _table_layer == cf.TABLE_LAYER_LIST[0]:
                     _column_type = "String"
                 else:
@@ -100,16 +90,10 @@ class Table2DDL:
                 check_zip = zip(_check_key_list, _check_value_list)
                 fe.table_info_miss(check_zip)
                 if body_script:
-                    _script_format = ",\n{} {} COMMENT '{}'"
-                    _body_script = _script_format.format(_column_physical_name, _column_type, _column_comment)
-                    body_script = body_script + _body_script
+                    body_script += f",\n{_column_physical_name} {_column_type} COMMENT '{_column_comment}'"
                 else:
-                    _script_format = "{} {} COMMENT '{}'"
-                    _body_script = _script_format.format(_column_physical_name, _column_type, _column_comment)
-                    body_script = body_script + _body_script
-        _script_format = "{}: DDL body built successful."
-        _date_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        print(_script_format.format(_date_time))
+                    body_script += f"{_column_physical_name} {_column_type} COMMENT '{_column_comment}'"
+        print(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}: DDL body built successful.")
         return body_script, partition_key_list
 
     @staticmethod
@@ -135,52 +119,37 @@ class Table2DDL:
         check_zip = zip(_check_key_list, _check_value_list)
         fe.table_info_miss(check_zip)
         # Header script
-        _script_format = "CREATE EXTERNAL TABLE `{}.{}`("
-        header_script = _script_format.format(_database_name, _table_name)
+        header_script = f"CREATE EXTERNAL TABLE `{_database_name}.{_table_name}`("
         # Tail script
-        tail_script = tail_script + ")"
+        tail_script += ")"
         # Table comment
-        _script_format = "\nCOMMENT '{}'"
-        _tail_script = _script_format.format(_table_comment)
-        tail_script = tail_script + _tail_script
+        tail_script += f"\nCOMMENT '{_table_comment}'"
         # Partition
         if _partitioned_by:
-            _script_format = "\nPARTITIONED BY (\n{}\n)"
-            _tail_script = _script_format.format(_partitioned_by)
-            tail_script = tail_script + _tail_script
+            tail_script += f"\nPARTITIONED BY (\n{_partitioned_by}\n)"
         else:
             pass
         # Row format serde
-        _script_format = "\nROW FORMAT SERDE '{}'"
-        _tail_script = _script_format.format(_row_format_serde)
-        tail_script = tail_script + _tail_script
+        tail_script += f"\nROW FORMAT SERDE '{_row_format_serde}'"
         # CSV or Excel
         if _row_format_serde == cf.ROW_FORMAT_SERDE_LIST[0][1]:
             # With Serde Properties
-            _script_format = "\n{}"
-            _tail_script = _script_format.format(_with_serdeproperties)
-            tail_script = tail_script + _tail_script
+            tail_script += f"\n{_with_serdeproperties}"
         else:
             pass
         # STORED AS
-        _script_format = "\n{}"
-        _tail_script = _script_format.format(_store_as)
-        tail_script = tail_script + _tail_script
+        tail_script += f"\n{_store_as}"
         # External table location
-        _script_format = "\nLOCATION '{}'"
-        _tail_script = _script_format.format(_data_file_location)
-        tail_script = tail_script + _tail_script
+        tail_script += f"\nLOCATION '{_data_file_location}'"
         # CSV or Excel
         if _row_format_serde == cf.ROW_FORMAT_SERDE_LIST[1][1]:
             # Table properties
-            _script_format = "\n{}"
-            _tail_script = _script_format.format(_table_properties)
-            tail_script = tail_script + _tail_script
+            tail_script += f"\n{_table_properties}"
         else:
             pass
         # Table Properties
-        tail_script = tail_script + "\nTBLPROPERTIES ( 'skip.header.line.count'='1')"
-        tail_script = tail_script + "\n;"
+        tail_script += "\nTBLPROPERTIES ( 'skip.header.line.count'='1')" \
+                       "\n;"
         return header_script, tail_script
 
     @staticmethod
@@ -196,36 +165,24 @@ class Table2DDL:
         _store_as = _table.store_as()
         _with_serdeproperties = _table.with_serdeproperties()
         # Header script
-        _script_format = "DROP TABLE IF EXISTS `{}.{}`;"
-        header_script = _script_format.format(_database_name, _table_name)
-        _script_format = header_script + "\nCREATE TABLE IF NOT EXISTS `{}.{}`("
-        header_script = _script_format.format(_database_name, _table_name)
+        header_script = f"DROP TABLE IF EXISTS `{_database_name}.{_table_name}`;" \
+                        f"\nCREATE TABLE IF NOT EXISTS `{_database_name}.{_table_name}`("
         # Tail script
         tail_script = tail_script + ")"
         # Table comment
-        _script_format = "\nCOMMENT '{}'"
-        _tail_script = _script_format.format(_table_comment)
-        tail_script = tail_script + _tail_script
+        tail_script += f"\nCOMMENT '{_table_comment}'"
         # Partition
         if _partitioned_by:
-            _script_format = "\nPARTITIONED BY (\n{}\n)"
-            _tail_script = _script_format.format(_partitioned_by)
-            tail_script = tail_script + _tail_script
+            tail_script += f"\nPARTITIONED BY (\n{_partitioned_by}\n)"
         else:
             pass
         # Row format serde
-        _script_format = "\nROW FORMAT SERDE '{}'"
-        _tail_script = _script_format.format(_row_format_serde)
-        tail_script = tail_script + _tail_script
+        tail_script += f"\nROW FORMAT SERDE '{_row_format_serde}'"
         # With Serde Properties
-        _script_format = "\n{}"
-        _tail_script = _script_format.format(_with_serdeproperties)
-        tail_script = tail_script + _tail_script
+        tail_script += f"\n{_with_serdeproperties}"
         # STORED AS
-        _script_format = "\n{}"
-        _tail_script = _script_format.format(_store_as)
-        tail_script = tail_script + _tail_script
-        tail_script = tail_script + "\n;"
+        tail_script += f"\n{_store_as}" \
+                       f"\n;"
         return header_script, tail_script
 
     @staticmethod
@@ -246,37 +203,25 @@ class Table2DDL:
         _store_as = _table.store_as()
         _table_properties = _table.table_properties()
         # Header script
-        _script_format = "DROP TABLE IF EXISTS `{}.{}`;"
-        header_script = _script_format.format(_database_name, _table_name)
-        _script_format = header_script + "\nCREATE TABLE IF NOT EXISTS `{}.{}`("
-        header_script = _script_format.format(_database_name, _table_name)
+        header_script = f"DROP TABLE IF EXISTS `{_database_name}.{_table_name}`;" \
+                        f"\nCREATE TABLE IF NOT EXISTS `{_database_name}.{_table_name}`("
         # Tail script
         tail_script = tail_script + ")"
         # Table comment
-        _script_format = "\nCOMMENT '{}'"
-        _tail_script = _script_format.format(_table_comment)
-        tail_script = tail_script + _tail_script
+        tail_script += f"\nCOMMENT '{_table_comment}'"
         # Partition
         if _partitioned_by:
-            _script_format = "\nPARTITIONED BY (\n{}\n)"
-            _tail_script = _script_format.format(_partitioned_by)
-            tail_script = tail_script + _tail_script
+            tail_script += f"\nPARTITIONED BY (\n{_partitioned_by}\n)"
         else:
             pass
         # Cluster
         if _clustered_by and _sorted_by and _buckets_number:
-            _script_format = "\nCLUSTERED BY ({}) SORTED BY ({}) INTO {} BUCKETS"
-            _tail_script = _script_format.format(_clustered_by, _sorted_by, _buckets_number)
-            tail_script = tail_script + _tail_script
+            tail_script += f"\nCLUSTERED BY ({_clustered_by}) SORTED BY ({_sorted_by}) INTO {_buckets_number} BUCKETS"
         else:
             pass
         # Row format serde
-        _script_format = "\nROW FORMAT SERDE '{}'"
-        _tail_script = _script_format.format(_row_format_serde)
-        tail_script = tail_script + _tail_script
+        tail_script += f"\nROW FORMAT SERDE '{_row_format_serde}'"
         # STORED AS
-        _script_format = "\n{}"
-        _tail_script = _script_format.format(_store_as)
-        tail_script = tail_script + _tail_script
-        tail_script = tail_script + "\n;"
+        tail_script += f"\n{_store_as}" \
+                       f"\n;"
         return header_script, tail_script

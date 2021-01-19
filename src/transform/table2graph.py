@@ -31,14 +31,12 @@ class Table2Graph:
         # transform header
         file_name = "JavisGraphDot"
         _file_header = "//  Description: Jarvis auto generation"
-        _file_header = _file_header + "\n//  Author: Jarvis"
-        _date_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        _script_format = "\n//  Last Modified: {}"
-        _file_header = _file_header + _script_format.format(_date_time)
-        _file_header = _file_header + "\n\ndigraph models_diagram{"
-        _file_header = _file_header + "\n    graph[layout=dot, rankdir=LR, overlap=false, splines=true];"
-        _file_header = _file_header + "\n    node [shape=record, fontsize=11, fontname=\"Palatino−Italic\"];"
-        _file_header = _file_header + "\n    edge [style=filled];"
+        _file_header = _file_header + "\n//  Author: Jarvi" \
+                                      "\n//  Last Modified: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}" \
+                                      "\n\ndigraph models_diagram{" \
+                                      "\n    graph[layout=dot, rankdir=LR, overlap=false, splines=true];" \
+                                      "\n    node [shape=record, fontsize=11, fontname=\"Palatino−Italic\"];" \
+                                      "\n    edge [style=filled];"
         file_body, relation_script, relation_df = self.get_file_body()
         if database_table_name:
             # Filter on specific tables and reprocess
@@ -60,12 +58,10 @@ class Table2Graph:
             pass
         file_body = file_body + relation_script
         _file_tail = "}"
-        _script_format = "{}\n{}\n{}"
-        script = _script_format.format(_file_header, file_body, _file_tail)
-        _script_format = "{}: Script generated successfully: {}"
+        script = f"{_file_header}\n{file_body}\n{_file_tail}"
         file_save = Save2Exp(cf.SAVE2EXP_FILE_TYPE_LIST[1], file_name, script)
         file_save.file_save()
-        print(_script_format.format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), file_name))
+        print(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}: Script generated successfully: {file_name}")
 
     @staticmethod
     def get_database_table_name_list(database_table_name_list, relation_df):
@@ -137,30 +133,28 @@ class Table2Graph:
                 ) or
                 not database_table_name_list
         ):
-            _script_format = "\n  table{} [shape=none, margin=0, label=<"
-            entity_script = entity_script + _script_format.format(table_id)
-            entity_script = entity_script + "\n    " \
-                                            "<table border=\"0\" " \
-                                            "cellborder=\"1\" " \
-                                            "cellspacing=\"0\" " \
-                                            "cellpadding=\"4\">"
+            entity_script += f"\n  table{table_id} [shape=none, margin=0, label=<" \
+                             f"\n    " \
+                             f"<table border=\"0\" " \
+                             f"cellborder=\"1\" " \
+                             f"cellspacing=\"0\" " \
+                             f"cellpadding=\"4\">"
             if (
                     "_fact_" in _table_name or
                     "rpt_" in _table_name
             ):
-                _script_format = "\n        <tr><td bgcolor=\"#FCE6C9\">{}.{}</td></tr>"
+                entity_script += f"\n        <tr><td bgcolor=\"#FCE6C9\">{_database_name}.{_table_name}</td></tr>"
             elif "_dim_" in _table_name:
-                _script_format = "\n        <tr><td bgcolor=\"#F0FFF0\">{}.{}</td></tr>"
+                entity_script += f"\n        <tr><td bgcolor=\"#F0FFF0\">{_database_name}.{_table_name}</td></tr>"
             else:
-                _script_format = "\n        <tr><td bgcolor=\"#C0C0C0\">{}.{}</td></tr>"
-            entity_script = entity_script + _script_format.format(_database_name, _table_name)
+                entity_script += f"\n        <tr><td bgcolor=\"#C0C0C0\">{_database_name}.{_table_name}</td></tr>"
             _port = 0
             for index, row in table_body.iterrows():
                 _column_physical_name = str(row[cf.TABLE_BODY_STRUCTURE[1]]).strip()
                 _column_type = str(row[cf.TABLE_BODY_STRUCTURE[2]]).strip()
                 _foreign_key = str(row[cf.TABLE_BODY_STRUCTURE[4]]).strip()
-                _script_format = "\n        <tr><td port=\"{}\" align=\"left\">{}: {}</td></tr>"
-                entity_script = entity_script + _script_format.format(_port, _column_physical_name, _column_type)
+                entity_script += f"\n        <tr><td port=\"{_port}\" align=\"left\">" \
+                                 f"{_column_physical_name}: {_column_type}</td></tr>"
                 if _foreign_key != "nan":
                     table_df = table_df.append(pd.DataFrame(
                         {
@@ -238,6 +232,5 @@ class Table2Graph:
             _table_to = row['table_to']
             _column_from = row['column_from']
             _column_to = row['column_to']
-            _script_format = "\n  {}:{} -> {}:{};"
-            relation_script = relation_script + _script_format.format(_table_from, _column_from, _table_to, _column_to)
+            relation_script += f"\n  {_table_from}:{_column_from} -> {_table_to}:{_column_to};"
         return relation_script, relation_df

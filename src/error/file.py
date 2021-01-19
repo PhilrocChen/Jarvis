@@ -20,15 +20,13 @@ def sheet_miss():
 
 
 def value_incorrect(parameter):
-    _format = "Value of {} is incorrect. Please correct Excel."
-    raise print(_format.format(parameter))
+    raise print(f"Value of {parameter} is incorrect. Please correct Excel.")
 
 
 def table_info_miss(check_zip):
     for key, value in check_zip:
         if not value or pd.isnull(value):
-            _format = "Table information: {} is missing. Please correct Excel."
-            raise print(_format.format(key))
+            raise print(f"Table information: {key} is missing. Please correct Excel.")
         else:
             pass
 

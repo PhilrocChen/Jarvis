@@ -236,8 +236,7 @@ class Table:
         if (
                 self.table_type() == cf.TABLE_TYPE_LIST[0]
         ):
-            _script_format = "/user/hive/warehouse/{}.db/{}"
-            data_file_location = _script_format.format(self.database_name(), self.table_name())
+            data_file_location = f"/user/hive/warehouse/{self.database_name()}.db/{self.table_name()}"
         else:
             pass
         return data_file_location
@@ -251,13 +250,9 @@ class Table:
         partitioned_by = ""
         for i in partition_key_list:
             if partitioned_by:
-                _script_format = ",\n  `{}` string"
-                _partitioned_by = _script_format.format(i)
-                partitioned_by = partitioned_by + _partitioned_by
+                partitioned_by += f",\n  `{i}` string"
             else:
-                _script_format = "  `{}` string"
-                _partitioned_by = _script_format.format(i)
-                partitioned_by = partitioned_by + _partitioned_by
+                partitioned_by += f"  `{i}` string"
         return partitioned_by
 
     def clustered_by(self):
@@ -348,18 +343,10 @@ class Table:
             with open(file, 'r') as f:
                 with_serdeproperties = f.read()
         else:
-            with_serdeproperties = "WITH SERDEPROPERTIES\n("
-            _script_format = "\n  'field.delim'='{}',"
-            _with_serdeproperties = _script_format.format(self.field_delim())
-            with_serdeproperties = with_serdeproperties + _with_serdeproperties
-            _script_format = "\n  'quoteChar'='{}',"
-            _with_serdeproperties = _script_format.format(self.quote_char())
-            with_serdeproperties = with_serdeproperties + _with_serdeproperties
-            _script_format = "\n  'separatorChar'='{}',"
-            _with_serdeproperties = _script_format.format(self.separator_char())
-            with_serdeproperties = with_serdeproperties + _with_serdeproperties
-            _script_format = "\n  'serialization.encoding'='{}'"
-            _with_serdeproperties = _script_format.format(self.serialization_encoding())
-            with_serdeproperties = with_serdeproperties + _with_serdeproperties
-            with_serdeproperties = with_serdeproperties + "\n)"
+            with_serdeproperties = f"WITH SERDEPROPERTIES\n(" \
+                                   f"\n  'field.delim'='{self.field_delim()}'," \
+                                   f"\n  'quoteChar'='{self.quote_char()}'," \
+                                   f"\n  'separatorChar'='{self.separator_char()}'," \
+                                   f"\n  'serialization.encoding'='{self.serialization_encoding()}'" \
+                                   f"\n)"
         return with_serdeproperties
